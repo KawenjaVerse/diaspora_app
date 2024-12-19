@@ -14,7 +14,7 @@ import 'GalleryPage.dart';
 import 'HeadMessage.dart';
 
 import 'ServicesPage.dart';
-import 'StrategiesPage.dart';
+
 
 
 // Import the new page
@@ -207,6 +207,7 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
           ),
           SizedBox(
             height: 200,
+            
             child: PageView.builder(
               controller: _pageController,
               itemCount: 4,
