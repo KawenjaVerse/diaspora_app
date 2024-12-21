@@ -2,6 +2,7 @@ import 'package:diaspora_app/NavBarScreens/ToDoScreens/Accomodation.dart';
 import 'package:diaspora_app/NavBarScreens/ToDoScreens/attraction.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'ToDoScreens/InvestmentPage.dart';
 import 'ToDoScreens/all_tab.dart';
 
 
@@ -60,7 +61,7 @@ class _ToDoPageState extends State<ToDoPage> with TickerProviderStateMixin {
                 AllTab(),
                AttractionTab(),
                Accomodation(),
-                Center(child: Text('Investments Tab Content')),
+               InvestmentPage(),
               ],
             ),
           ),

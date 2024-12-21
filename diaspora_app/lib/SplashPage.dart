@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Aunthentication/LoginPage.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -32,7 +34,10 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
     // Start animation and navigate to home page after completion
     _animationController.forward().then((_) {
-      Navigator.of(context).pushReplacementNamed('/home');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
     });
   }
 
@@ -57,19 +62,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                 fit: BoxFit.cover,
               ),
 
-              // Overlay with lighter gradient
+              // Overlay
               Container(
-                decoration:  BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFFF5C23).withOpacity(0.7), // Slightly darker orange
-                      Color(0xFFFFC371).withOpacity(0.7), // Slightly darker yellow
-                   
-                       ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
+                color: Colors.black.withOpacity(0.5),
               ),
 
               // Centered Circle and Logo with fade-in effect
@@ -109,6 +104,33 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                       fontFamily: "Poppins",
                     ),
                   ),
+                ),
+              ),
+
+              // Footer
+              Positioned(
+                bottom: 20,
+                left: 0,
+                right: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/state.png', // Replace with your logo path
+                      height: 30,
+                      fit: BoxFit.contain,
+                    )
+                    ,const SizedBox(width: 8),
+                     
+                    const Text(
+                      "Powered by Government of Uganda",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                    
+                  ],
                 ),
               ),
             ],

@@ -182,95 +182,129 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  color: Color.fromARGB(255, 255, 239, 234),
+  elevation: 4,
+  margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+  child: Padding(
+    padding: const EdgeInsets.all(12.0),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header (User Info)
+        Row(
           children: [
-            // Header (User Info)
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage(post.userProfileImage),
-                  radius: 20,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(post.username,
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                      Text(
-                        _formatTimestamp(post.timestamp),
-                        style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            CircleAvatar(
+              backgroundImage: AssetImage(post.userProfileImage),
+              radius: 20,
             ),
-            const SizedBox(height: 10),
-            // Post Content
-            Text(
-              post.content,
-              style: const TextStyle(fontSize: 16),
-            ),
-            if (post.image != null)
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: Image.asset(
-                    post.image!,
-                    fit: BoxFit.cover,
-                    height: 200,
-                    width: double.infinity,
+            const SizedBox(width: 8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    post.username,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                ),
+                  Text(
+                    _formatTimestamp(post.timestamp),
+                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
+                  ),
+                ],
               ),
-            const SizedBox(height: 10),
-            // Actions (Like/Comment)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: onLike,
-                  child: Row(
-                    children: [
-                      Icon(FontAwesomeIcons.heart,
-                          size: 18, color: isLiked ? Colors.red : Colors.grey),
-                      const SizedBox(width: 5),
-                      Text('${post.likes}', style: const TextStyle(fontSize: 12)),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      FontAwesomeIcons.comment,
-                      size: 18,
-                      color: Colors.grey,
-                    ),
-                    const SizedBox(width: 5),
-                    Text('${post.comments.length}',
-                        style: const TextStyle(fontSize: 12))
-                  ],
-                ),
-              ],
             ),
-            const SizedBox(height: 10),
-            // Comments Section
-            if(post.comments.isNotEmpty)
-               _buildCommentSection(post.comments)
-
           ],
         ),
-      ),
-    );
+         const SizedBox(height: 6),
+        Divider(),
+        const SizedBox(height: 3),
+        // Post Content
+        Text(
+          post.content,
+          style: const TextStyle(fontSize: 14),
+        ),
+        if (post.image != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                post.image!,
+                fit: BoxFit.cover,
+                height: 200,
+                width: double.infinity,
+              ),
+            ),
+          ),
+        const SizedBox(height: 10),
+        // Actions (Comment/Like/Share)
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Comment Action
+            GestureDetector(
+              onTap: (){},
+              child: Row(
+                children: [
+                  const Icon(
+                    FontAwesomeIcons.comment,
+                    size: 16,
+                    color: Color(0xFFFF5C23),
+                  ),
+                  const SizedBox(width: 5),
+                  const Text(
+                    'Comment',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            // Like Action
+            GestureDetector(
+              onTap: onLike,
+              child: Row(
+                children: [
+                  Icon(
+                    FontAwesomeIcons.thumbsUp,
+                    size: 16,
+                    color: isLiked ? Colors.red : Colors.blue,
+                  ),
+                  const SizedBox(width: 5),
+                  const Text(
+                    'Like',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+            // Share Action
+            GestureDetector(
+              onTap: (){},
+              child: Row(
+                children: [
+                  const Icon(
+                    FontAwesomeIcons.shareNodes,
+                    size: 16,
+                    color: Color(0xFFFF5C23),
+                  ),
+                  const SizedBox(width: 5),
+                  const Text(
+                    'Share',
+                    style: TextStyle(fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        // Comments Section
+        if (post.comments.isNotEmpty) _buildCommentSection(post.comments),
+      ],
+    ),
+  ),
+);
+
   }
 
   //Helper function to format the timestamp
