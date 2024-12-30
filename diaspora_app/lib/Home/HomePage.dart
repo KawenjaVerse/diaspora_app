@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:diaspora_app/Home/ContactUs/ContactUsPage.dart';
 import 'package:diaspora_app/NavBarScreens/SupportPage.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -303,20 +304,26 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
         ),
       ),
 
-      floatingActionButton: Card(
-          color: Colors.orange,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.support_agent),
-                SizedBox(width: 8,),
-                Text("Contact Us", style: TextStyle(fontWeight: FontWeight.bold),),
-              ],
-            ),
-          )),
+
+      floatingActionButton: GestureDetector(
+        onTap: (){
+           Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
+        },
+        child: Card(
+            color: Colors.orange,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 20),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.support_agent),
+                  SizedBox(width: 8,),
+                  Text("Contact Us", style: TextStyle(fontWeight: FontWeight.bold),),
+                ],
+              ),
+            )),
+      ),
     );
   }
 

@@ -11,7 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 var APP_URL_BASE  = "http://188.166.8.72:9019/api/";
-var APP_URL_FILE  = "http://188.166.8.72:9019/images/";
+var APP_URL_FILE  = "http://188.166.8.72:9019/files/";
+
 
 var skip_verification = true;
 
