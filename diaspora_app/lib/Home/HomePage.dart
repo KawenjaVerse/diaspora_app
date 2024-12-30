@@ -36,13 +36,13 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0; // Track current bottom navigation item
 
   // Head of Organization Data
-  
+
   final List<Widget> _pages = [
-      HomeContent(), // Home
+    HomeContent(), // Home
     const ToDoPage(), // To Do
     const SupportPage(), // Map
     const MarketPage(), // Market
-    const ProfilePage(), // More
+    ProfilePage(), // More
   ];
 
   @override
@@ -77,10 +77,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.transparent),
         title: Row(
-          
+
           children: [
-           
-           Image.asset(
+
+            Image.asset(
               'assets/images/logo.jpg',
               height: 30,
               fit: BoxFit.contain,
@@ -91,14 +91,14 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             SizedBox(width: 20,),
-             GestureDetector(
-              onTap: (){
-                 Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => NotificationPage()));
-              },
-              child: Icon(Icons.notifications,color: Color(0xFFFF5C23),))
+            GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NotificationPage()));
+                },
+                child: Icon(Icons.notifications,color: Color(0xFFFF5C23),))
           ],
         ),
       ),
@@ -151,34 +151,34 @@ class _HomePageState extends State<HomePage> {
 
 
 class HomeContent extends StatefulWidget {
-    const HomeContent({super.key});
+  const HomeContent({super.key});
 
   @override
   State<HomeContent> createState() => _HomeContentState();
 }
 
 class _HomeContentState extends State<HomeContent> {
-   final _pageController = PageController(viewportFraction: 0.8);
+  final _pageController = PageController(viewportFraction: 0.8);
   int _currentPage = 0;
   late Timer _timer;
 
-    // Head of Organization Data
-     final String _headName = "Mohammed Bagonza";
+  // Head of Organization Data
+  final String _headName = "Mohammed Bagonza";
   final String _headTitle = "HEAD OF DIASPORA UNIT STATE HOUSE";
-    final String _headImage = 'assets/images/bagonza.jpg';
-    final String _welcomeMessage = '''
+  final String _headImage = 'assets/images/bagonza.jpg';
+  final String _welcomeMessage = '''
 Dear Ugandans in the Diaspora,
 I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am committed to supporting your engagement with the government  and empowering  you to contribute more effectively to the development of Uganda.
     ''';
 
-    @override
+  @override
   void dispose() {
     _pageController.dispose();
     _timer.cancel(); // Cancel the timer to prevent errors when disposing
     super.dispose();
   }
 
-    void _startAutoSlide() {
+  void _startAutoSlide() {
     _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       if (_pageController.page != null) {
         _currentPage = (_pageController.page!.round() + 1) % 4;
@@ -198,234 +198,125 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
   }
   @override
   Widget build(BuildContext context) {
-     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-           _buildHeadCard(),
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0,top: 12,bottom: 12),
-            child: Text('Latest News',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xFFFF5C23)
-),),
-          ),
-          SizedBox(
-            height: 200,
-            
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: 4,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentPage = index;
-                });
-              },
-              itemBuilder: (context, index) {
-                return _buildSliderItem(context, index);
-              },
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildHeadCard(),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0,top: 12,bottom: 12),
+              child: Text('Latest News',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xFFFF5C23)
+              ),),
             ),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SmoothPageIndicator(
+            SizedBox(
+              height: 200,
+
+              child: PageView.builder(
                 controller: _pageController,
-                count: 4,
-                effect: const ExpandingDotsEffect(
-                  dotHeight: 8,
-                  dotWidth: 8,
-                  activeDotColor: Colors.black,
-                  dotColor: Colors.grey,
-                  spacing: 8,
-                  expansionFactor: 3,
-                ),
-                onDotClicked: (index) {
-                  _pageController.animateToPage(
-                    index,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
+                itemCount: 4,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return _buildSliderItem(context, index);
                 },
               ),
             ),
-          ),
-          
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
-            child: GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.8,
-              children: [
-                 _buildGridItem('Services', 'assets/images/setting.png'),
-      _buildGridItem('Forum', 'assets/images/forum.png'),
-      _buildGridItem('Contact Us', 'assets/images/contact.png'),
-      _buildGridItem('About Us', 'assets/images/about.png'),
-      _buildGridItem('Events', 'assets/images/events.png'),
-      _buildGridItem('Gallery', 'assets/images/gallery.png'),
-    
-                ],
-            ),
-          ),
-          SizedBox(height: 8,),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: const Text(
-                "What We Do",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFFF5C23)
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SmoothPageIndicator(
+                  controller: _pageController,
+                  count: 4,
+                  effect: const ExpandingDotsEffect(
+                    dotHeight: 8,
+                    dotWidth: 8,
+                    activeDotColor: Colors.black,
+                    dotColor: Colors.grey,
+                    spacing: 8,
+                    expansionFactor: 3,
+                  ),
+                  onDotClicked: (index) {
+                    _pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
                 ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 3,
-          ),
-          SizedBox(
-            height: 230,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return _buildContainerItem(context, index);
-              },
+
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.8,
+                children: [
+                  _buildGridItem('Services', 'assets/images/setting.png'),
+                  _buildGridItem('Forum', 'assets/images/forum.png'),
+                  _buildGridItem('Contact Us', 'assets/images/contact.png'),
+                  _buildGridItem('About Us', 'assets/images/about.png'),
+                  _buildGridItem('Events', 'assets/images/events.png'),
+                  _buildGridItem('Gallery', 'assets/images/gallery.png'),
+
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 16,),
-         Center(
-        child: GestureDetector(
-          onTap: () {
-            showDialog(
-              barrierDismissible: false ,
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  backgroundColor: Colors.transparent, // Transparent background
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      // Colored container with rounded corners
-                      Positioned(
-                        top: 100,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          width: MediaQuery.of(context).size.width * 0.8,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(height: 50), // Space for the logo
-                              const Text(
-                                'Support',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Could we have your contact info?',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-
-                              // Name TextField
-                              TextFormField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Name',
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-
-                              // Email TextField
-                              TextFormField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Email',
-                                  border: OutlineInputBorder(),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-
-                              // Chat Button
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFFFF5C23),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Message Sent'),
-                                      backgroundColor: Color(0xFFFF5C23),
-                                    ),
-                                  );
-                                },
-                                child: const Text('Chat',style: TextStyle(color: Colors.white),),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // Round container with app logo
-                      Positioned(
-                        top: 50,
-                        child: CircleAvatar(
-                          
-                          radius: 60,
-                          backgroundColor: Colors.white,
-                          backgroundImage:
-                              const AssetImage('assets/images/logo.jpg'),
-                              
-                        ),
-                      ),
-                    ],
+            SizedBox(height: 8,),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: const Text(
+                  "What We Do",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFFF5C23)
                   ),
-                );
-              },
-            );
-          },
-          child: Container(
-            width: 90,
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Color(0xFFFF5C23),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Row(
-              children: const [
-                Icon(Icons.chat, color: Colors.white),
-                SizedBox(width: 6),
-                Text(
-                  'Chat',
-                  style: TextStyle(color: Colors.white),
                 ),
-              ],
+              ),
             ),
-          ),
+            const SizedBox(
+              height: 3,
+            ),
+            SizedBox(
+              height: 230,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return _buildContainerItem(context, index);
+                },
+              ),
+            ),
+
+          ],
         ),
       ),
-           SizedBox(height: 16,),
-        ],
-      ),
+
+      floatingActionButton: Card(
+          color: Colors.orange,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.support_agent),
+                SizedBox(width: 8,),
+                Text("Contact Us", style: TextStyle(fontWeight: FontWeight.bold),),
+              ],
+            ),
+          )),
     );
   }
 
@@ -475,11 +366,11 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HeadMessagePage(
-                                        headName: _headName,
-                                        headTitle: _headTitle,
-                                        headImage: _headImage,
-                                        welcomeMessage: _welcomeMessage,
-                                      )));
+                                    headName: _headName,
+                                    headTitle: _headTitle,
+                                    headImage: _headImage,
+                                    welcomeMessage: _welcomeMessage,
+                                  )));
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFFFF5C23),
@@ -498,19 +389,19 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
     );
   }
 
-Widget _buildSliderItem(BuildContext context, int index) {
-  final List<String> images = [
-    'assets/images/news1.jpg',
-    'assets/images/news2.jpg',
-    'assets/images/news3.jpg',
-    'assets/images/news4.jpg',
-  ];
+  Widget _buildSliderItem(BuildContext context, int index) {
+    final List<String> images = [
+      'assets/images/news1.jpg',
+      'assets/images/news2.jpg',
+      'assets/images/news3.jpg',
+      'assets/images/news4.jpg',
+    ];
 
-  final List<Map<String, String>> newsItems = [
-    {
-      'title': 'Museveni ready to support skilled Ugandan returnees from Turkey',
-      'description':
-          ''' 
+    final List<Map<String, String>> newsItems = [
+      {
+        'title': 'Museveni ready to support skilled Ugandan returnees from Turkey',
+        'description':
+        ''' 
           The Senior Presidential Advisor to the President and Head of Diaspora Unit of State House, Mohammed Bagonza, has told returnees from Turkey President Yoweri Museveni is ready to utilize the skills they learnt abroad for the country’s socio-economic transformation.
 
 Bagonza was on Monday meeting leaders of the returnees from Turkey at his office in Kampala when he told them the president had set up various hubs and innovation centres, where their skills can be maximally utilized.
@@ -541,11 +432,11 @@ Uganda currently boasts of more than 21 Presidential Hubs set up in various sub-
 
 So far thousands of disadvantaged youth have graduated from the hubs with different skills that have enabled them to be self-employed.
           ''',
-    },
-    {
-      'title': 'State House officials, US professor discuss job opportunities in America',
-      'description':
-          '''
+      },
+      {
+        'title': 'State House officials, US professor discuss job opportunities in America',
+        'description':
+        '''
           Officials from State House have held discussions with a top American university over the possibility of recruiting Ugandans to work as nurses in the United States, where there is a shortage of about 100,000 nurses.
 
 The team from State House which was led by the Senior Presidential Advisor and head of the Diaspora Unit, Mohammed Bagonza, met with Kennesaw State University Dean, Dr Monica Swahn, and other leaders of a local organisation, Uganda Youth Development Link (UYDL) in Kampala recently.
@@ -572,11 +463,11 @@ According to the Senior Presidential Advisor, currently Uganda does not have any
 
 “This will be discussed with the President because we already have more than enough trained nurses who can take up that opportunity,” Bagonza who was accompanied by his Deputy Henry Wabyona and legal advisor Andrew Kibumba said.
           ''',
-    },
-    {
-      'title': 'Vice President Alupo lauds Ugandans in southern Africa',
-      'description':
-          ''' 
+      },
+      {
+        'title': 'Vice President Alupo lauds Ugandans in southern Africa',
+        'description':
+        ''' 
           Johannesburg. The Vice President, Jessica Alupo, has received a formal invitation on behalf of President Yoweri Museveni to attend the highly anticipated Second Convention of Ugandans in Southern Africa (COUSA), which will be held in October 2024 in Pretoria, South Africa.
 
 The formal invitation was presented by Uganda’s High Commissioner to South Africa Amb. Paul Amoru in the company of Deputy High Commissioner Amb. Kintu Nyago and Mr. Phillips Kakuru, a Board member of COUSA. 
@@ -627,11 +518,11 @@ COUSA 2024 is set to be a landmark event, spotlighting the unity, strength, and 
 
 Below is the pictorial from the meeting between VP Alupo, Amb. Amoru and COUSA.
           ''',
-    },
-    {
-      'title': 'Invest Back Home, President Museveni Urged Ugandans',
-      'description':
-          ''' 
+      },
+      {
+        'title': 'Invest Back Home, President Museveni Urged Ugandans',
+        'description':
+        ''' 
          The President made the call while closing the second annual edition of the 2023 Canada National Resistance Movement (NRM) Chapter Symposium in a virtual meeting held at State Lodge- Nakasero on Sunday, 13th August 2023.
 
 The two -day symposium which took place in Toronto, Canada, ran under the theme: “Dialogue, Unity and a Prosperous Diaspora”.
@@ -641,65 +532,65 @@ The two -day symposium which took place in Toronto, Canada, ran under the theme:
 President Museveni, who also serves as the National chairman of the NRM, informed Ugandans living in Canada that currently, the government is focused on supporting and executing the knowledge-based economy, explaining that with investment sustained, the country will achieve more. 
           
          ''',
-    },
-  ];
+      },
+    ];
 
-  return GestureDetector(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NewsDetailPage(
-            image: images[index],
-            title: newsItems[index]['title']!,
-            description: newsItems[index]['description']!,
-          ),
-        ),
-      );
-    },
-    child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.asset(
-              images[index],
-              fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NewsDetailPage(
+              image: images[index],
+              title: newsItems[index]['title']!,
+              description: newsItems[index]['description']!,
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10.0),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset(
+                images[index],
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
                   ),
-                ),
-                child: Text(
-                  newsItems[index]['title']!,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
+                  child: Text(
+                    newsItems[index]['title']!,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
- Widget _buildContainerItem(BuildContext context, int index) {
+    );
+  }
+  Widget _buildContainerItem(BuildContext context, int index) {
     final List<String> bgImages = [
       'assets/images/girl.webp',
       'assets/images/human.jpg',
@@ -797,63 +688,63 @@ President Museveni, who also serves as the National chairman of the NRM, informe
   }
 
   // Grid item
- Widget _buildGridItem(String title, String imagePath) {
-  return GestureDetector(
-    onTap: () {
-      if (title == 'Services') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ServicesPage()));
-      } else if (title == 'Contact Us') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ContactPage()));
-      } else if (title == 'Forum') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ForumPage()));
-      } else if (title == 'About Us') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => AboutPage()));
-      } else if (title == 'Gallery') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => GalleryPage()));
-      }
-       else if (title == 'Events') {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => EventsPage()));
-      }
-      
-    },
-    child: SizedBox(
-      height: 80,
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: const Color(0xFFFF5C23), // Red background
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              imagePath,
-              height: 40,
-              width: 40,
-              fit: BoxFit.cover,
-              color: Colors.white,
-            ),
-            const SizedBox(height: 6.0),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
+  Widget _buildGridItem(String title, String imagePath) {
+    return GestureDetector(
+      onTap: () {
+        if (title == 'Services') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ServicesPage()));
+        } else if (title == 'Contact Us') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ContactPage()));
+        } else if (title == 'Forum') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ForumPage()));
+        } else if (title == 'About Us') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AboutPage()));
+        } else if (title == 'Gallery') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => GalleryPage()));
+        }
+        else if (title == 'Events') {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => EventsPage()));
+        }
+
+      },
+      child: SizedBox(
+        height: 80,
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFF5C23), // Red background
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                imagePath,
+                height: 40,
+                width: 40,
+                fit: BoxFit.cover,
                 color: Colors.white,
-              ), // White text
-            ),
-          ],
+              ),
+              const SizedBox(height: 6.0),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ), // White text
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
 }

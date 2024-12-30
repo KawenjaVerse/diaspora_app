@@ -1,14 +1,34 @@
+import 'package:diaspora_app/SplashPage.dart';
+import 'package:diaspora_app/utils/Helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class ProfilePage extends StatefulWidget{
+  @override
+  State<ProfilePage> createState() {
+    return _ProfilePage();
+  }
+
+}
+
+
+class _ProfilePage extends State<ProfilePage>{
+
+  @override
+  void initState() {
+    super.initState();
+    getName();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-     
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -20,9 +40,9 @@ class ProfilePage extends StatelessWidget {
                 child: Stack(
                   children: [
                     CircleAvatar(
-                      backgroundColor: Colors.grey.shade100,
-                      radius: 60,
-                      child: Icon(Icons.person,size: 50,color: Colors.grey.shade500,)
+                        backgroundColor: Colors.grey.shade100,
+                        radius: 60,
+                        child: Icon(Icons.person,size: 50,color: Colors.grey.shade500,)
                     ),
                     Positioned(
                       bottom: 0,
@@ -52,6 +72,19 @@ class ProfilePage extends StatelessWidget {
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+
+              Container(
+                margin: const EdgeInsets.only(top: 16),
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("$_name ($_phone)"),
+                    Text("$_email", style: TextStyle(fontWeight: FontWeight.bold),),
+
                   ],
                 ),
               ),
@@ -132,6 +165,8 @@ class ProfilePage extends StatelessWidget {
                     title: 'Logout',
                     onTap: () {
                       // Handle logout action
+                      logoutPerson(context);
+                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SplashPage() ), (route) => false);
                     },
                   ),
                 ],
@@ -210,5 +245,17 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String? _name;
+  String? _email;
+  String? _phone;
+  Future<void> getName() async {
+    var pref = await SharedPreferences.getInstance();
+    setState(() {
+      _name = pref.getString('user_name');
+      _email = pref.getString('user_email');
+      _phone = pref.getString('user_phone');
+    });
   }
 }
