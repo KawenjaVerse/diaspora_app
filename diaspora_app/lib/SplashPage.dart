@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Aunthentication/LoginPage.dart';
 
@@ -34,10 +35,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
     // Start animation and navigate to home page after completion
     _animationController.forward().then((_) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
+      determineNextPage();
     });
   }
 
@@ -138,5 +136,20 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
         },
       ),
     );
+  }
+
+  Future<void> determineNextPage() async {
+    var pref = await SharedPreferences.getInstance();
+    var isLoggedIn = pref.getBool('is_user_logged_in') ?? false;
+
+    if (isLoggedIn) {
+      Navigator.pushReplacementNamed(context, '/home');
+      return;
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    }
   }
 }

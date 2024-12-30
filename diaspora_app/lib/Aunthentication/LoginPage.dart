@@ -1,3 +1,5 @@
+import 'package:diaspora_app/Aunthentication/RegisterPage.dart';
+import 'package:diaspora_app/utils/Helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,6 +16,30 @@ class _LoginPageState extends State<LoginPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+
+  var _email = '';
+  var _password = '';
+
+  var _loading = false;
+  action(){
+    requestAPI("people/login", {"email":_email, "password":_password}, (loading){ setState(() {
+      _loading = loading;
+    }); }, (value){
+      if (value["status"] == "success") {
+        savePersonInPreference(value["data"]);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomePage() ), (route) => false);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(value["message"]),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }, (error){}, method: "POST");
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +114,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             style: const TextStyle(color: Colors.black),
                             keyboardType: TextInputType.emailAddress,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter an email';
-                              }
-                              return null;
+                            onSaved: (value) {
+                              _email = value!;
                             },
                           ),
                           const SizedBox(height: 16.0),
@@ -120,11 +143,8 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             style: const TextStyle(color: Colors.black),
                             obscureText: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a password';
-                              }
-                              return null;
+                            onSaved: (value) {
+                              _password = value!;
                             },
                           ),
                           const SizedBox(height: 16.0),
@@ -132,10 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                           // Sign In Button
                           ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                // Handle sign in logic
-                                Navigator.pushNamed(context, '/home');
-                              }
+                              _formKey.currentState!.save();
+                              action();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFFF5C23),
@@ -219,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                               const Text("Don't have an account?", style: TextStyle(color: Colors.black)),
                               TextButton(
                                 onPressed: () {
-                                  // Navigate to sign-up page
+                                   Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage() ) );
                                 },
                                 child: const Text("Sign Up", style: TextStyle(color: Color(0xFFFF5C23))),
                               ),
