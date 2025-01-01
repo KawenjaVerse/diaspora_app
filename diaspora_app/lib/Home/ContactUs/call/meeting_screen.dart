@@ -80,7 +80,8 @@ class _MeetingScreenState extends State<MeetingScreen> {
 
     _room.on(Events.roomLeft, () {
       participants.clear();
-      Navigator.popUntil(context, ModalRoute.withName('/'));
+      //Navigator.popUntil(context, ModalRoute.withName('/'));
+      Navigator.pop(context);
     });
   }
 
@@ -144,20 +145,82 @@ class _MeetingScreenState extends State<MeetingScreen> {
 
 
 
-
-              MeetingControls(
-                onToggleMicButtonPressed: () {
-                  micEnabled ? _room.muteMic() : _room.unmuteMic();
-                  micEnabled = !micEnabled;
-                },
-                onToggleCameraButtonPressed: () {
-                  camEnabled ? _room.disableCam() : _room.enableCam();
-                  camEnabled = !camEnabled;
-                },
-                onLeaveButtonPressed: () {
-                  _room.leave();
-                },
+              Container(
+                padding: EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: (){
+                        _room.leave();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.exit_to_app, color: Colors.white,),
+                              SizedBox(width: 5,),
+                              Text("Leave", style: TextStyle(color: Colors.white, fontSize: 12),)
+                            ],
+                          )),
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        micEnabled ? _room.muteMic() : _room.unmuteMic();
+                        micEnabled = !micEnabled;
+                        setState(() {});
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(micEnabled ? Icons.mic : Icons.code_off, color: Colors.white,),
+                              SizedBox(width: 5,),
+                              Text("Voice", style: TextStyle(color: Colors.white, fontSize: 12),)
+                            ],
+                          )),
+                    ),
+                    GestureDetector(
+                      onTap: (){
+                        camEnabled ? _room.disableCam() : _room.enableCam();
+                        camEnabled = !camEnabled;
+                        setState(() {});
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(4),
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(camEnabled ? Icons.camera_alt_outlined : Icons.code_off, color: Colors.white,),
+                              SizedBox(width: 5,),
+                              Text("Camera", style: TextStyle(color: Colors.white, fontSize: 12),)
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
               ),
+
+
+
             ],
           ),
         ),
