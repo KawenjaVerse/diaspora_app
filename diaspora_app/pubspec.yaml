@@ -51,6 +51,11 @@ dependencies:
   line_icons: ^2.0.3
   package_info_plus: ^8.1.1
 
+  videosdk: ^1.2.5
+  http: ^1.2.2
+  #videosdk_flutter_example:
+    #path: "../../videosdk-rtc-flutter-sdk"
+
 dev_dependencies:
   flutter_launcher_icons: "^0.14.2"
   flutter_test:
@@ -84,6 +89,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/images/
+     - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -6,14 +6,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
 class ChatPage extends StatefulWidget{
+
+  var reciever_id = "0";
+  ChatPage({required this.reciever_id});
+
   @override
   State<ChatPage> createState() {
-    return _ChatPage();
+    return _ChatPage(reciever_id:reciever_id);
   }
 
 }
 
 class _ChatPage extends State<ChatPage>{
+
+  var reciever_id = "0";
+  _ChatPage({required this.reciever_id});
 
   var chats = [];
 
@@ -29,10 +36,13 @@ class _ChatPage extends State<ChatPage>{
   getChats() async {
     var pref = await SharedPreferences.getInstance();
     user_id = pref.getString("user_id");
+    if( reciever_id != "0"){
+      user_id = "0";
+    }
 
     requestAPI("chats/get", {
       "sender_id":user_id,
-      "receiver_id":"0",
+      "receiver_id":reciever_id,
     }, (loading){
       setState(() {
         _loading_chats = loading;
@@ -197,9 +207,13 @@ class _ChatPage extends State<ChatPage>{
     var pref = await SharedPreferences.getInstance();
     var user_id = pref.getString("user_id");
 
+    if( reciever_id != "0"){
+      user_id = "0";
+    }
+
     requestAPI("chats/send", {
       "sender_id":user_id,
-      "receiver_id":"0",
+      "receiver_id":reciever_id,
       "message":_messageController.text,
       if (_picture != "" && _picture != "null")
         'picture': await MultipartFile.fromFile(_picture, filename: "picture.jpg"),

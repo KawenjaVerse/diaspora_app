@@ -23,7 +23,7 @@ if (keystorePropertiesFile.exists()) {
 
 
 android {
-    namespace = "com.example.diaspora_app"
+    namespace = "com.afrosoft.diaspora_app"
     compileSdk = 35
     ndkVersion = "28.0.12433566"
 
@@ -38,7 +38,7 @@ android {
 
     defaultConfig {
         applicationId = "com.afrosoft.diaspora_app"
-        minSdk = flutter.minSdkVersion
+        minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

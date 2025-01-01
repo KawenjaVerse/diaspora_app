@@ -53,6 +53,7 @@ void savePersonInPreference(person) async {
   preferences.setString("user_id", "${person["id"] as int}");
   preferences.setString("user_name", person["name"] as String? ?? "");
   preferences.setString("user_email", person["email"] as String? ?? "");
+  preferences.setString("user_type", person["type"] as String? ?? "");
   preferences.setString("user_phone", person["phone"] as String? ?? "");
   preferences.setString("user_address", person["address"] as String? ?? "");
   preferences.setString("user_country", person["country"] as String? ?? "");
