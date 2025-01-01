@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../utils/Helper.dart';
 import 'api_call.dart';
 import 'meeting_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,19 +22,47 @@ class _JoinScreen extends State<JoinScreen>{
   String? meeting_id;
   _JoinScreen({this.meeting_id});
 
+  var _loading_server = false;
+  initiateVideoCall() async {
+    var pref = await SharedPreferences.getInstance();
+    var user_id = pref.getString("user_id") ?? "0";
+
+    requestAPI("calls/create", {
+      "sender_id":user_id,
+      "receiver_id":"0",
+      "meeting_id":meeting_id
+    }, (loading){
+      setState(() {
+        _loading_server = loading;
+      });
+    }, (value){
+      if(value["status"] == "success"){
+         Navigator.push(context, MaterialPageRoute(builder: (context) => MeetingScreen(
+           meetingId: meeting_id!,
+           token: token,
+         ) ) );
+      }
+    }, (error){
+
+    },method: "POST");
+
+  }
+
   @override
   void initState() {
     super.initState();
 
     if(meeting_id == null){
-      message = "New Meeting ...";
+      info_message = "New Meeting ...";
       createMeeting().then((meetingId) {
         setState(() {
-          message = "Meeting Created ...$meetingId";
+          info_message = "Meeting Created ...$meetingId";
         });
+        meeting_id = meetingId;
+        initiateVideoCall();
       });
     } else {
-      message = "Continuing Meeting ...$meeting_id";
+      info_message = "Continuing Meeting ...$meeting_id";
     }
   }
 
@@ -75,7 +105,7 @@ class _JoinScreen extends State<JoinScreen>{
     }
   }
 
-  var message = "Getting Things Ready...";
+  var info_message = "Getting Things Ready...";
 
 
   @override
@@ -102,7 +132,13 @@ class _JoinScreen extends State<JoinScreen>{
                           width: 20, height: 20,
                           margin: EdgeInsets.only(bottom: 10, top: 5),
                           child: const CircularProgressIndicator()),
-                      Text("$message"),
+                      Text("$info_message"),
+                      //horizontal progress bar
+                      if ( _loading_server )
+                        
+                      Container(
+                          padding: const EdgeInsets.all(6.0),
+                          child: LinearProgressIndicator()),
                     ],
                   ),
                 ),

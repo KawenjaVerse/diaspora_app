@@ -21,8 +21,7 @@ class MeetingControls extends StatelessWidget {
         ElevatedButton(
             onPressed: onToggleMicButtonPressed, child: const Text('Toggle Mic')),
         ElevatedButton(
-            onPressed: onToggleCameraButtonPressed,
-            child: const Text('Toggle WebCam')),
+            onPressed: onToggleCameraButtonPressed, child: const Text('Toggle WebCam')),
       ],
     );
   }

@@ -112,7 +112,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
       //onWillPop: () => _onWillPop(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('VideoSDK QuickStart'),
+          title: const Text('Video Call Session'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -139,6 +139,12 @@ class _MeetingScreenState extends State<MeetingScreen> {
                   ),
                 ),
               ),
+
+
+
+
+
+
               MeetingControls(
                 onToggleMicButtonPressed: () {
                   micEnabled ? _room.muteMic() : _room.unmuteMic();
