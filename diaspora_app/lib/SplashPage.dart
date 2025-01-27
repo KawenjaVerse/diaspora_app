@@ -93,7 +93,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                 child: Opacity(
                   opacity: _textFadeAnimation.value, // Fade-in opacity for text
                   child: Text(
-                    "DIASPORA UNIT UGANDA",
+                    "DIASPORA UGANDA",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 24,

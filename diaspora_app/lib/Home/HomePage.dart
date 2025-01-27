@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:diaspora_app/Home/ContactUs/ContactUsPage.dart';
-import 'package:diaspora_app/NavBarScreens/SupportPage.dart';
+import 'package:diaspora_app/NavBarScreens/EmbassyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../NavBarScreens/MarketPage.dart';
 import '../NavBarScreens/MorePage.dart';
 import '../NavBarScreens/ToDoPage.dart';
@@ -41,10 +41,11 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = [
     HomeContent(), // Home
     const ToDoPage(), // To Do
-    const SupportPage(), // Map
+    const EmbassyPage(), // Map
     const MarketPage(), // Market
     ProfilePage(), // More
   ];
+  
 
   @override
   void dispose() {
@@ -88,10 +89,10 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(width: 5,),
             Text(
-              'DIASPORA UNIT UGANDA',
+              'DIASPORA UGANDA',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(width: 20,),
+            Spacer(),
             GestureDetector(
                 onTap: (){
                   Navigator.push(
@@ -135,12 +136,12 @@ class _HomePageState extends State<HomePage> {
             label: 'To Do'),
         BottomNavigationBarItem(
             backgroundColor: Colors.black,
-            icon: Icon(Icons.handshake),
-            label: 'Support'),
+            icon: Icon(Icons.public),
+            label: 'Embassies'),
         BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(Icons.shopping_cart),
-            label: 'Market'),
+            label: 'Support'),
         BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(Icons.more_horiz),
@@ -272,17 +273,15 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
               ),
             ),
             SizedBox(height: 8,),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: const Text(
-                  "What We Do",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFFF5C23)
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0,top: 16),
+              child: const Text(
+                "Partners",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFFF5C23)
                 ),
               ),
             ),
@@ -293,9 +292,9 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
               height: 230,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: 1,
                 itemBuilder: (context, index) {
-                  return _buildContainerItem(context, index);
+                  return _buildContainerItem(context);
                 },
               ),
             ),
@@ -324,6 +323,7 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
               ),
             )),
       ),
+   
     );
   }
 
@@ -597,102 +597,202 @@ President Museveni, who also serves as the National chairman of the NRM, informe
       ),
     );
   }
-  Widget _buildContainerItem(BuildContext context, int index) {
-    final List<String> bgImages = [
-      'assets/images/girl.webp',
-      'assets/images/human.jpg',
-      'assets/images/image3.jpg',
-      'assets/images/image4.jpg',
-      'assets/images/kampala.webp',
-    ];
+  Widget _buildContainerItem(BuildContext context) {
+  final List<Map<String, String>> ministryData = [
+    {
+      "title": "MINISTRY OF FOREIGN AFFAIRS",
+      "image": "assets/images/foreign.png",
+      "url": "https://mofa.go.ug/", // Add the URL here
+    },
+    {
+      "title": "MINISTRY OF LANDS, HOUSING AND URBAN DEVELOPMENT",
+      "image": "assets/images/lands.jpg",
+      "url": "https://mlhud.go.ug/",
+    },
+    {
+      "title": "MINISTRY OF ENERGY AND MINERAL DEVELOPMENT",
+      "image": "assets/images/energy.png",
+      "url": "hhttps://dgsm.go.ug/contact/",
+    },
+    {
+      "title": "MINISTRY OF TOURISM, WILDLIFE AND ANTIQUITIES",
+      "image": "assets/images/wildlife.png",
+      "url": "https://www.tourism.go.ug/",
+    },
+    {
+      "title": "UGANDA REVENUE AUTHORITY",
+      "image": "assets/images/ura.jpg",
+      "url": "https://www.ura.go.ug",
+    },
+    {
+      "title": "NIRA",
+      "image": "assets/images/nira.jpg",
+      "url": "https://www.nira.go.ug",
+    },
+    {
+      "title": "BANK OF UGANDA",
+      "image": "assets/images/bank.jpg",
+      "url": "https://www.bou.or.ug",
+    },
+    {
+      "title": "DIRECTORATE OF CITIZENSHIP AND IMMIGRATION CONTROL",
+      "image": "assets/images/state.png",
+      "url": "https://www.immigration.go.ug/home",
+    },
+    {
+      "title": "STATE HOUSE INVESTORS PROTECTION UNIT",
+      "image": "assets/images/state.png",
+      "url": "https://www.statehouseinvest.go.ug/",
+    },
+  ];
 
-    final List<String> titles = [
-      "Migrant Support",
-      "Human Trafficking Prevention",
-      "Legal Migration Assistance",
-      "Diaspora Engagement",
-      "Investment Opportunities"
-    ];
+  return Container(
+    height: 200,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: ministryData.map((ministry) {
+            return buildMinistryCard(
+              title: ministry['title']!,
+              imagePath: ministry['image']!,
+              url: ministry['url']!, // Passing URL to the card builder
+            );
+          }).toList(),
+        ),
+      ),
+    ),
+  );
+}
 
-    final List<String> descriptions = [
-      "Offering comprehensive services to support migrants, from pre-departure to integration upon return.",
-      "Collaborating with various agencies to combat human trafficking and support victims.",
-      "Providing guidance and legal support for those seeking to migrate legally.",
-      "Conducting events, tours, and conventions to engage with diaspora communities worldwide.",
-      "Facilitating travel and investment opportunities for diaspora members, with dedicated support and incentives."
-    ];
-
-    return Container(
-      width: 180,
-      child: Stack(
-        fit: StackFit.expand,
+Widget buildMinistryCard({
+  required String title,
+  required String imagePath,
+  required String url,
+}) {
+  return GestureDetector(
+    onTap: () async {
+      final Uri _url = Uri.parse(url); // Convert string URL to Uri
+      if (await canLaunchUrl(_url)) { // Check if the URL can be launched
+        await launchUrl(_url); // Open the URL
+      } else {
+        throw 'Could not launch $url'; // Error if URL can't be opened
+      }
+    },
+    child: Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      width: 200, // Dynamic width for consistent layout
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          IntrinsicWidth(
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(bottom: 6),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Color(0xFFFF4300),
+                    width: 1,
+                  ),
+                ),
+              ),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
           Image.asset(
-            bgImages[index],
+            imagePath,
+            height: 70,
+            width: 70,
             fit: BoxFit.cover,
           ),
-          Container(
-            decoration: BoxDecoration(
-              gradient: _getGradient(index),
-              color: _getColor(index),
+        ],
+      ),
+    )
+  
+  
+  );
+}
+
+Widget buildMinistryCardWithoutUrl({required String title, required String imagePath}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      width: 200, // Dynamic width for consistent layout
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          IntrinsicWidth(
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(bottom: 6),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: Color(0xFFFF4300),
+                    width: 1,
+                  ),
+                ),
+              ),
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  titles[index],
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: index != 3 ? Colors.black : Colors.white,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  descriptions[index],
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: index != 3 ? Colors.black : Colors.white,
-                  ),
-                ),
-              ],
-            ),
+          const SizedBox(height: 16),
+          Image.asset(
+            imagePath,
+            height: 70,
+            width: 70,
+            fit: BoxFit.cover,
           ),
         ],
       ),
     );
-  }
+  
 
-  LinearGradient? _getGradient(int index) {
-    switch (index) {
-      case 0:
-      case 2:
-      case 4:
-        return LinearGradient(
-          colors: [Colors.red.withOpacity(0.5), Colors.yellow.withOpacity(0.5)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        );
-      default:
-        return null;
-    }
   }
-
-  Color? _getColor(int index) {
-    switch (index) {
-      case 1:
-        return Colors.white.withOpacity(0.7);
-      case 3:
-        return Colors.black.withOpacity(0.7);
-      default:
-        return null;
-    }
-  }
+ 
+ 
 
   // Grid item
   Widget _buildGridItem(String title, String imagePath) {

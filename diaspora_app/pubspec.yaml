@@ -53,6 +53,8 @@ dependencies:
 
   videosdk: ^1.2.5
   http: ^1.2.2
+  webview_flutter: ^4.10.0
+  carousel_slider: ^5.0.0
   #videosdk_flutter_example:
     #path: "../../videosdk-rtc-flutter-sdk"
 
