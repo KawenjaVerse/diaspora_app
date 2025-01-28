@@ -3,11 +3,18 @@ import 'dart:async';
 import 'package:diaspora_app/Home/ContactUs/ContactUsPage.dart';
 import 'package:diaspora_app/NavBarScreens/EmbassyPage.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../NavBarScreens/DiasporaRegistrationPage.dart';
+import '../NavBarScreens/MarketDetails.dart';
 import '../NavBarScreens/MarketPage.dart';
 import '../NavBarScreens/MorePage.dart';
+import '../NavBarScreens/NationalIDPage.dart';
+import '../NavBarScreens/PassportPage.dart';
 import '../NavBarScreens/ToDoPage.dart';
+import '../NavBarScreens/ToDoScreens/attraction.dart';
+import '../NavBarScreens/VisaPage.dart';
 import 'AboutPage.dart';
 import 'ContactPage.dart';
 import 'EventsPage.dart';
@@ -15,8 +22,10 @@ import 'ForumPage.dart';
 import 'GalleryPage.dart';
 import 'HeadMessage.dart';
 
+import 'InvestPage.dart';
 import 'NewsPage.dart';
 import 'Notification.dart';
+import 'ServiceDetails.dart';
 import 'ServicesPage.dart';
 
 
@@ -133,7 +142,7 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(Icons.calendar_month),
-            label: 'To Do'),
+            label: 'Tourism'),
         BottomNavigationBarItem(
             backgroundColor: Colors.black,
             icon: Icon(Icons.public),
@@ -172,7 +181,35 @@ class _HomeContentState extends State<HomeContent> {
 Dear Ugandans in the Diaspora,
 I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am committed to supporting your engagement with the government  and empowering  you to contribute more effectively to the development of Uganda.
     ''';
-
+//  final List<Attraction> attractions = [
+//       Attraction(
+//         imagePath: 'assets/images/baby.jpg',
+//         type: 'Document',
+//         name: 'How to acquire Birth Certificate',
+//         description: 'Learn the process to acquire a birth certificate in Uganda, '
+//             'including the requirements and steps needed for application.',
+//       ),
+//       Attraction(
+//         imagePath: 'assets/images/passport.jpg',
+//         type: 'Document',
+//         name: 'How to Renew your Passport in Diaspora',
+//         description: 'Find out how to renew your passport while living abroad, '
+//             'with detailed information on necessary documents and processing time.',
+//       ),
+//       Attraction(
+//         imagePath: 'assets/images/id.jpg',
+//         type: 'Document',
+//         name: 'How to get a National Id in Diaspora',
+//         description: 'The Uganda National Identification Card is a National document that is issued to all and only citizens of Uganda. The Card is a bio-metrically enhanced, machine-readable card with digitally embedded information about the holder. One’s information can ONLY be accessed by law.',
+//       ),
+//       Attraction(
+//         imagePath: 'assets/images/immg.jpg',
+//         type: 'New Application',
+//         name: 'Visa Application Assistance',
+//         description: 'Apply for a visa to Uganda with the help of our team. '
+//             'We provide assistance with the application process and required documents.',
+//       ),
+//     ];
   @override
   void dispose() {
     _pageController.dispose();
@@ -276,10 +313,10 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
             Padding(
               padding: const EdgeInsets.only(left: 12.0,top: 16),
               child: const Text(
-                "Partners",
+                "Services",
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFFFF5C23)
                 ),
@@ -288,23 +325,91 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
             const SizedBox(
               height: 3,
             ),
-            SizedBox(
-              height: 230,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return _buildContainerItem(context);
-                },
-              ),
-            ),
 
-          ],
+ SizedBox(
+  height: 250,
+  child: SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    padding: EdgeInsets.all(8),
+    child: Row(
+   crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        
+        SizedBox(
+          width: 300,
+          child: _buildServiceCard(
+            imagePath: 'assets/images/uia.jpg',
+            title: 'Investments',
+            description: 'Investments in Uganda',
+            onReadMore: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InvestPage(),
+                ),
+              );
+            },
+          ),
         ),
-      ),
+        SizedBox(
+          width: 300,
+          child: _buildServiceCard(
+            imagePath: 'assets/images/immg.jpg',
+            title: 'Visas',
+            description: 'New Application',
+            onReadMore: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VisaPage(),
+                ),
+              );
+            },
+          ),
+        ),
+        
+        SizedBox(
+
+          width: 300,
+          child: _buildServiceCard(
+            imagePath: 'assets/images/pssprt.jpg',
+            title: 'Passports',
+            description: 'Apply, Renew',
+            onReadMore: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PassportPage(),
+                ),
+              );
+            },
+          ),
+        ),
+        SizedBox(
+          width: 300,
+          child: _buildServiceCard(
+            imagePath: 'assets/images/nat.jpg',
+            title: 'National ID',
+            description: 'National ID Appointment',
+            onReadMore: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NationalIDPage(),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    ),
+  ),
+ ),
 
 
-      floatingActionButton: GestureDetector(
+ ] ))
+ ,
+   floatingActionButton: GestureDetector(
         onTap: (){
            Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
         },
@@ -324,8 +429,91 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
             )),
       ),
    
+ 
+ );}
+
+ Widget _buildServiceCard({
+    required String imagePath,
+    required String title,
+    required String description,
+    required VoidCallback onReadMore,
+  }) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 10),
+      
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 8,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Service Image
+            Image.asset(
+              imagePath,
+              width: 80,
+              height: 80,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(width: 16),
+            // Service Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    description,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black54,
+                    ),
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 12),
+                  TextButton(
+                    onPressed: onReadMore,
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(8.0),
+                      backgroundColor: const Color(0xFFFF5C23),
+                     foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Read More',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
+
 
 
   Widget _buildHeadCard() {
@@ -597,75 +785,7 @@ President Museveni, who also serves as the National chairman of the NRM, informe
       ),
     );
   }
-  Widget _buildContainerItem(BuildContext context) {
-  final List<Map<String, String>> ministryData = [
-    {
-      "title": "MINISTRY OF FOREIGN AFFAIRS",
-      "image": "assets/images/foreign.png",
-      "url": "https://mofa.go.ug/", // Add the URL here
-    },
-    {
-      "title": "MINISTRY OF LANDS, HOUSING AND URBAN DEVELOPMENT",
-      "image": "assets/images/lands.jpg",
-      "url": "https://mlhud.go.ug/",
-    },
-    {
-      "title": "MINISTRY OF ENERGY AND MINERAL DEVELOPMENT",
-      "image": "assets/images/energy.png",
-      "url": "hhttps://dgsm.go.ug/contact/",
-    },
-    {
-      "title": "MINISTRY OF TOURISM, WILDLIFE AND ANTIQUITIES",
-      "image": "assets/images/wildlife.png",
-      "url": "https://www.tourism.go.ug/",
-    },
-    {
-      "title": "UGANDA REVENUE AUTHORITY",
-      "image": "assets/images/ura.jpg",
-      "url": "https://www.ura.go.ug",
-    },
-    {
-      "title": "NIRA",
-      "image": "assets/images/nira.jpg",
-      "url": "https://www.nira.go.ug",
-    },
-    {
-      "title": "BANK OF UGANDA",
-      "image": "assets/images/bank.jpg",
-      "url": "https://www.bou.or.ug",
-    },
-    {
-      "title": "DIRECTORATE OF CITIZENSHIP AND IMMIGRATION CONTROL",
-      "image": "assets/images/state.png",
-      "url": "https://www.immigration.go.ug/home",
-    },
-    {
-      "title": "STATE HOUSE INVESTORS PROTECTION UNIT",
-      "image": "assets/images/state.png",
-      "url": "https://www.statehouseinvest.go.ug/",
-    },
-  ];
-
-  return Container(
-    height: 200,
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: ministryData.map((ministry) {
-            return buildMinistryCard(
-              title: ministry['title']!,
-              imagePath: ministry['image']!,
-              url: ministry['url']!, // Passing URL to the card builder
-            );
-          }).toList(),
-        ),
-      ),
-    ),
-  );
-}
-
+  
 Widget buildMinistryCard({
   required String title,
   required String imagePath,
@@ -736,6 +856,7 @@ Widget buildMinistryCard({
   );
 }
 
+
 Widget buildMinistryCardWithoutUrl({required String title, required String imagePath}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -792,7 +913,96 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
 
   }
  
- 
+ Widget buildCard(Attraction data, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to the AttractionDetailsPage and pass the data, including description
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AttractionDetailsPage(
+              imagePath: data.imagePath,
+              type: data.type,
+              name: data.name,
+              description: data.description,
+            ),
+          ),
+        );
+      },
+      child: Container(
+        width: 200,
+        height: 200,
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: Card(
+          elevation: 5.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Column(
+              children: [
+                Stack(
+                  children: [
+                    Image.asset(
+                      data.imagePath,
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      top: 10,
+                      right: 10,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white.withOpacity(0.6),
+                        child: IconButton(
+                          icon: const Icon(
+                            FontAwesomeIcons.heart,
+                            color: Color(0xFFFF5C23),
+                          ),
+                          onPressed: () {
+                            // Handle like action
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.type,
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                              color: Color(0xFFFF5C23),
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data.name,
+                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 8),
+                      const Divider(thickness: 1),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+
 
   // Grid item
   Widget _buildGridItem(String title, String imagePath) {
