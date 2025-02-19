@@ -283,7 +283,7 @@ class _ContactUsState extends State<ContactUs> {
               const SizedBox(width: 8),
               Text(
                       widget.address,
-                style: const TextStyle(fontSize: 12, color: Colors.black),
+                style: const TextStyle(fontSize: 10, color: Colors.black,fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -320,7 +320,7 @@ class _ContactUsState extends State<ContactUs> {
       child: Text(
         widget.email,
         style: TextStyle(
-          fontSize: 16,
+          fontSize: 12,
           color:  const Color(0xFFFF5C23),
           decorationColor: const Color(0xFFFF5C23),
           decoration: TextDecoration.underline, // Underline for emphasis
@@ -346,7 +346,7 @@ class _ContactUsState extends State<ContactUs> {
               const SizedBox(width: 8),
                Text(
                 widget.phone,
-                style: TextStyle(fontSize: 16, color: Colors.black),
+                style: TextStyle(fontSize: 12, color: Colors.black,fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -408,19 +408,19 @@ Container(
           
           children: [
           Container(
-            height: 40,
-            width: 40,
-            child: Image.asset('assets/images/icons8_facebook_48.png')),
+            height: 48,
+            width: 48,
+            child: Image.asset('assets/images/fbk.webp')),
             SizedBox(width: 20,),
           Container(
-            height: 40,
-            width: 40,
-            child: Image.asset('assets/images/icons8_twitter_50.png')),
+            height: 48,
+            width: 48,
+            child: Image.asset('assets/images/x.jpg')),
              SizedBox(width: 20,),
           Container(
-            height: 40,
-            width: 40,
-            child: Image.asset('assets/images/icons8_instagram_48.png')),
+            height: 48,
+            width: 48,
+            child: Image.asset('assets/images/insta.png')),
          ],)
         ],
       ),

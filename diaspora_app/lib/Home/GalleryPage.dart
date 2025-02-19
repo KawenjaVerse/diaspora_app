@@ -37,6 +37,16 @@ class _GalleryPageState extends State<GalleryPage> {
             'assets/images/gallery9.jpg',
       ],
     },
+     {
+      'title': '2024 DIASPORA Conference',
+      'coverImage': 'assets/images/conf1.jpg',
+      'images': [
+        'assets/images/conf2.jpg',
+            'assets/images/conf3.jpg',
+            'assets/images/conf4.jpg',
+            'assets/images/conf5.jpg',
+      ],
+    },
   ];
 
   @override
@@ -160,7 +170,7 @@ class AlbumDetailPage extends StatelessWidget {
               width: 10,
             ),
             Text(album['title'],style: TextStyle(color: Color(0xFFFF5C23)
-            ,fontWeight: FontWeight.bold),),
+            ,fontWeight: FontWeight.bold,fontSize: 14),),
            
                ],
         ),

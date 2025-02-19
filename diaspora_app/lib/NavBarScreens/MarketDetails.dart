@@ -1,3 +1,4 @@
+import 'package:diaspora_app/NavBarScreens/DiasporaServicePage.dart';
 import 'package:flutter/material.dart';
 
 class AttractionDetailsPage extends StatelessWidget {
@@ -143,6 +144,14 @@ class AttractionDetailsPage extends StatelessWidget {
                   ),
                   onPressed: () {
                     // Handle your action (e.g., like or share)
+                    Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DiasporaServicePage(
+             
+            ),
+          ),
+        );
                   },
                   child: const Text(
                     'Learn More',

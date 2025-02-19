@@ -78,6 +78,9 @@ PODS:
     - Flutter
     - WebRTC-SDK (= 114.5735.09)
   - WebRTC-SDK (114.5735.09)
+  - webview_flutter_wkwebview (0.0.1):
+    - Flutter
+    - FlutterMacOS
 
 DEPENDENCIES:
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
@@ -93,6 +96,7 @@ DEPENDENCIES:
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - videosdk (from `.symlinks/plugins/videosdk/ios`)
   - videosdk_webrtc (from `.symlinks/plugins/videosdk_webrtc/ios`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/darwin`)
 
 SPEC REPOS:
   trunk:
@@ -127,6 +131,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/videosdk/ios"
   videosdk_webrtc:
     :path: ".symlinks/plugins/videosdk_webrtc/ios"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
@@ -145,6 +151,7 @@ SPEC CHECKSUMS:
   videosdk: 1c91ee1eb4cbf2ffccd5740ee75cfe7b656b6143
   videosdk_webrtc: a8975e998baa3fb217ed27e303d864bf865577f2
   WebRTC-SDK: efc3e67e0355b1ee14bfe3c91188cada6000cb94
+  webview_flutter_wkwebview: 0982481e3d9c78fd5c6f62a002fcd24fc791f1e4
 
 PODFILE CHECKSUM: 92906b04914919e75004799b609448ddd7c0a72e
 

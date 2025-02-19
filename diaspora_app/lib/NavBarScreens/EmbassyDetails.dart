@@ -59,7 +59,7 @@ class _EmbassyDetailPageState extends State<EmbassyDetailPage> {
       appBar: AppBar(
         title: Text(
           widget.embassy['name'] ?? "Embassy Details",
-          style: const TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(color: Colors.white, fontSize: 13),
         ),
         backgroundColor: const Color(0xFFFF5C23),
         foregroundColor: Colors.white,

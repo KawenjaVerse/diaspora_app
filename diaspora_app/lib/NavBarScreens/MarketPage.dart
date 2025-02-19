@@ -1,20 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'MarketDetails.dart';
-
-class Attraction {
-  final String imagePath;
-  final String type;
-  final String name;
-  final String description;
-
-  Attraction({
-    required this.imagePath,
-    required this.type,
-    required this.name,
-    required this.description,
-  });
-}
+import 'package:url_launcher/url_launcher.dart';
 
 class MarketPage extends StatefulWidget {
   const MarketPage({super.key});
@@ -26,163 +11,148 @@ class MarketPage extends StatefulWidget {
 class _MarketPageState extends State<MarketPage> {
   @override
   Widget build(BuildContext context) {
-    final List<Attraction> attractions = [
-      Attraction(
-        imagePath: 'assets/images/baby.jpg',
-        type: 'Document',
-        name: 'How to acquire Birth Certificate',
-        description: 'Learn the process to acquire a birth certificate in Uganda, '
-            'including the requirements and steps needed for application.',
-      ),
-      Attraction(
-        imagePath: 'assets/images/passport.jpg',
-        type: 'Document',
-        name: 'How to Renew your Passport in Diaspora',
-        description: 'Find out how to renew your passport while living abroad, '
-            'with detailed information on necessary documents and processing time.',
-      ),
-      Attraction(
-        imagePath: 'assets/images/id.jpg',
-        type: 'Document',
-        name: 'How to get a National Id in Diaspora',
-        description: 'The Uganda National Identification Card is a National document that is issued to all and only citizens of Uganda. The Card is a bio-metrically enhanced, machine-readable card with digitally embedded information about the holder. One’s information can ONLY be accessed by law.',
-      ),
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Our Publications'),
+        title: const Text('Our Partners',style: TextStyle(color: Colors.white),),
         centerTitle: true,
-        backgroundColor: Color(0xFFFF5C23),
+        backgroundColor: const Color(0xFFFF5C23),
         elevation: 4.0,
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            Text(
-              'We ensure that Ugandans Living abroad access the following services:',
-              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Passport Renewals, National ID registration, Visa Assistance for Former Ugandans, '
-              'Legalisation of Documents, and Consular services.',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black54,
-                  ),
-            ),
-            const SizedBox(height: 24),
-
-            // Attraction Sites Section
-            SizedBox(
-              height: 420,
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: attractions.length,
-                itemBuilder: (context, index) {
-                  final attraction = attractions[index];
-                  return buildCard(attraction, context);
-                },
-              ),
-            ),
-            SizedBox(height: 8),
-          ],
-        ),
+      body: ListView(
+        padding: const EdgeInsets.all(8.0),
+        children: _buildMinistryCards(),
       ),
     );
   }
 
-  Widget buildCard(Attraction data, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Navigate to the AttractionDetailsPage and pass the data, including description
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => AttractionDetailsPage(
-              imagePath: data.imagePath,
-              type: data.type,
-              name: data.name,
-              description: data.description,
-            ),
-          ),
-        );
+  List<Widget> _buildMinistryCards() {
+    final List<Map<String, String>> ministryData = [
+      {
+        "title": "MINISTRY OF FOREIGN AFFAIRS",
+        "image": "assets/images/foreign.png",
+        "url": "https://mofa.go.ug/",
       },
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        child: Card(
-          elevation: 5.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
+      {
+        "title": "MINISTRY OF LANDS, HOUSING AND URBAN DEVELOPMENT",
+        "image": "assets/images/lands.jpg",
+        "url": "https://mlhud.go.ug/",
+      },
+      {
+        "title": "MINISTRY OF ENERGY AND MINERAL DEVELOPMENT",
+        "image": "assets/images/energy.png",
+        "url": "https://dgsm.go.ug/contact/",
+      },
+      {
+        "title": "MINISTRY OF TOURISM, WILDLIFE AND ANTIQUITIES",
+        "image": "assets/images/wildlife.png",
+        "url": "https://www.tourism.go.ug/",
+      },
+      {
+        "title": "UGANDA REVENUE AUTHORITY",
+        "image": "assets/images/ura.jpg",
+        "url": "https://www.ura.go.ug",
+      },
+      {
+        "title": "NIRA",
+        "image": "assets/images/nira.jpg",
+        "url": "https://www.nira.go.ug",
+      },
+      {
+        "title": "BANK OF UGANDA",
+        "image": "assets/images/bank.jpg",
+        "url": "https://www.bou.or.ug",
+      },
+      {
+        "title": "DIRECTORATE OF CITIZENSHIP AND IMMIGRATION CONTROL",
+        "image": "assets/images/state.png",
+        "url": "https://www.immigration.go.ug/home",
+      },
+      {
+        "title": "STATE HOUSE INVESTORS PROTECTION UNIT",
+        "image": "assets/images/state.png",
+        "url": "https://www.statehouseinvest.go.ug/",
+      },
+    ];
+
+    // Map each ministry to a ministry card
+    return ministryData
+        .map(
+          (ministry) => buildMinistryCard(
+            title: ministry['title']!,
+            imagePath: ministry['image']!,
+            url: ministry['url']!,
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12.0),
-            child: Column(
-              children: [
-                Stack(
-                  children: [
-                    Image.asset(
-                      data.imagePath,
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      top: 10,
-                      right: 10,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white.withOpacity(0.6),
-                        child: IconButton(
-                          icon: const Icon(
-                            FontAwesomeIcons.heart,
-                            color: Color(0xFFFF5C23),
-                          ),
-                          onPressed: () {
-                            // Handle like action
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        data.type,
-                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                              color: Color(0xFFFF5C23),
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data.name,
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      const Divider(thickness: 1),
-                    ],
-                  ),
-                ),
-              ],
+        )
+        .toList();
+  }
+
+  Widget buildMinistryCard({
+    required String title,
+    required String imagePath,
+    required String url,
+  }) {
+    return GestureDetector(
+      onTap: () async {
+        final Uri _url = Uri.parse(url); // Convert string URL to Uri
+        if (await canLaunchUrl(_url)) {
+          await launchUrl(_url); // Open the URL
+        } else {
+          throw 'Could not launch $url'; // Error if URL can't be opened
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 6,
+              offset: const Offset(0, 4),
             ),
-          ),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Ministry Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                imagePath,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(width: 16),
+            // Ministry Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Tap to visit the website',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -67,7 +67,7 @@ Image.asset(
         children: [
         
           Container(
-  height: 200,
+  height: 250,
   child: Container(
     decoration: BoxDecoration(
       
