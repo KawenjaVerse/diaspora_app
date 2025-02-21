@@ -41,6 +41,7 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,46 +192,8 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 16.0),
 
-                          // Facebook Sign In Button
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              // Handle Facebook sign in logic
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue[800],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            ),
-                            icon: const Icon(FontAwesomeIcons.facebook, color: Colors.white),
-                            label: const Text(
-                              "Sign in with Facebook",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          const SizedBox(height: 8.0),
-
-                          // Google Sign In Button
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              // Handle Google sign in logic
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(color: Colors.grey[300]!),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            ),
-                            icon: const Icon(FontAwesomeIcons.google, color: Colors.red),
-                            label: const Text(
-                              "Sign in with Google",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          const SizedBox(height: 32.0),
+                         
+                         
 
                           // Sign Up Option
                           Row(

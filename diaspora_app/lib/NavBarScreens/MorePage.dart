@@ -3,9 +3,11 @@ import 'package:diaspora_app/utils/Helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'EditProfilePage.dart';
 
 class ProfilePage extends StatefulWidget{
   @override
@@ -17,13 +19,22 @@ class ProfilePage extends StatefulWidget{
 
 
 class _ProfilePage extends State<ProfilePage>{
-
+ File? _profileImage;
   @override
   void initState() {
     super.initState();
     getName();
   }
+Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,17 +51,20 @@ class _ProfilePage extends State<ProfilePage>{
                 child: Stack(
                   children: [
                     CircleAvatar(
-                        backgroundColor: Colors.grey.shade100,
-                        radius: 60,
-                        child: Icon(Icons.person,size: 50,color: Colors.grey.shade500,)
+                      radius: 60,
+                      backgroundColor: Colors.grey.shade100,
+                      backgroundImage: _profileImage != null
+                          ? FileImage(_profileImage!) // Display selected image
+                          : null,
+                      child: _profileImage == null
+                          ? Icon(Icons.person, size: 50, color: Colors.grey.shade500)
+                          : null,
                     ),
                     Positioned(
                       bottom: 0,
                       right: 0,
                       child: GestureDetector(
-                        onTap: () {
-                          // Handle edit profile
-                        },
+                        onTap: _pickImage, // Open gallery to pick an image
                         child: Container(
                           padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
@@ -60,14 +74,14 @@ class _ProfilePage extends State<ProfilePage>{
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.3),
                                 blurRadius: 4,
-                                offset: Offset(2, 2),
+                                offset: const Offset(2, 2),
                               ),
                             ],
                           ),
                           child: Icon(
                             FontAwesomeIcons.pen,
                             size: 20,
-                            color: Color(0xFFFF5C23),
+                            color: const Color(0xFFFF5C23),
                           ),
                         ),
                       ),
@@ -95,72 +109,36 @@ class _ProfilePage extends State<ProfilePage>{
                 context,
                 title: 'Profile Settings',
                 items: [
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.userEdit,
-                    title: 'Edit Profile',
-                    onTap: () {},
-                  ),
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.language,
-                    title: 'Language',
-                    onTap: () {},
-                  ),
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.bell,
-                    title: 'Notification',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Wishlist, Currency Converter Section
-              buildSettingsSection(
-                context,
-                title: 'Other Options',
-                items: [
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.heart,
-                    title: 'Wishlist',
-                    onTap: () {},
-                  ),
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.exchangeAlt,
-                    title: 'Currency Converter',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Rating, Support, Quicklinks, Privacy Policy, Logout Section
-              buildSettingsSection(
-                context,
-                title: 'Account Settings',
-                items: [
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.star,
-                    title: 'Rating',
-                    onTap: () {},
-                  ),
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.headset,
-                    title: 'Support',
-                    onTap: () {},
-                  ),
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.link,
-                    title: 'Quicklinks',
-                    onTap: () {},
-                  ),
-                  _buildSettingItem(
-                    icon: FontAwesomeIcons.shieldAlt,
-                    title: 'Privacy Policy',
-                    onTap: () {},
-                  ),
-                  _buildSettingItem(
+                 _buildSettingItem(
+  icon: FontAwesomeIcons.userEdit,
+  title: 'Edit Profile',
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfilePage(
+          name: _name,
+          email: _email,
+          phone: _phone,
+        ),
+      ),
+    ).then((_) {
+      // Refresh the profile data after returning from the edit page
+      getName();
+    });
+  },
+),
+                  // _buildSettingItem(
+                  //   icon: FontAwesomeIcons.language,
+                  //   title: 'Language',
+                  //   onTap: () {},
+                  // ),
+                  // _buildSettingItem(
+                  //   icon: FontAwesomeIcons.bell,
+                  //   title: 'Notification',
+                  //   onTap: () {},
+                  // ),
+                   _buildSettingItem(
                     icon: FontAwesomeIcons.signOutAlt,
                     title: 'Logout',
                     onTap: () {
@@ -171,6 +149,67 @@ class _ProfilePage extends State<ProfilePage>{
                   ),
                 ],
               ),
+
+              const SizedBox(height: 16),
+
+              // Wishlist, Currency Converter Section
+              // buildSettingsSection(
+              //   context,
+              //   title: 'Other Options',
+              //   items: [
+              //     _buildSettingItem(
+              //       icon: FontAwesomeIcons.heart,
+              //       title: 'Wishlist',
+              //       onTap: () {},
+              //     ),
+              //     _buildSettingItem(
+              //       icon: FontAwesomeIcons.exchangeAlt,
+              //       title: 'Currency Converter',
+              //       onTap: () {},
+              //     ),
+              //   ],
+              // ),
+
+
+              const SizedBox(height: 16),
+
+              // Rating, Support, Quicklinks, Privacy Policy, Logout Section
+              // buildSettingsSection(
+              //   context,
+              //   title: 'Account Settings',
+              //   items: [
+              //     _buildSettingItem(
+              //       icon: FontAwesomeIcons.star,
+              //       title: 'Rating',
+              //       onTap: () {},
+              //     ),
+              //     _buildSettingItem(
+              //       icon: FontAwesomeIcons.headset,
+              //       title: 'Support',
+              //       onTap: () {},
+              //     ),
+              //     _buildSettingItem(
+              //       icon: FontAwesomeIcons.link,
+              //       title: 'Quicklinks',
+              //       onTap: () {},
+              //     ),
+              //     _buildSettingItem(
+              //       icon: FontAwesomeIcons.shieldAlt,
+              //       title: 'Privacy Policy',
+              //       onTap: () {},
+              //     ),
+              //     _buildSettingItem(
+              //       icon: FontAwesomeIcons.signOutAlt,
+              //       title: 'Logout',
+              //       onTap: () {
+              //         // Handle logout action
+              //         logoutPerson(context);
+              //          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SplashPage() ), (route) => false);
+              //       },
+              //     ),
+              //   ],
+              // ),
+            
             ],
           ),
         ),
