@@ -139,6 +139,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
   }
 
   Future<void> determineNextPage() async {
+    Navigator.pushReplacementNamed(context, '/home');
+    return;
+
     var pref = await SharedPreferences.getInstance();
     var isLoggedIn = pref.getBool('is_user_logged_in') ?? false;
 

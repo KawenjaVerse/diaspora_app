@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../Aunthentication/LoginPage.dart';
 import 'chats/AiChatPage.dart';
 import 'chats/ChatPage.dart';
 
@@ -65,10 +66,25 @@ class _ContactUsPage extends State<ContactUsPage>{
             itemCount: actions.length,
             itemBuilder: (context, index){
               return GestureDetector(
-                onTap: (){
-                  if( actions[index]["id"] == 3 )
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(reciever_id: "0",) ) );
-                  else if( actions[index]["id"] == 0 )
+                onTap: () async {
+                  if( actions[index]["id"] == 3 ){
+
+                    var pref = await SharedPreferences.getInstance();
+                  var isLoggedIn = pref.getBool('is_user_logged_in') ?? false;
+
+                  if (isLoggedIn) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPage(reciever_id: "0",) ) );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginPage()),
+                    );
+                  }
+
+
+
+
+                  }else if( actions[index]["id"] == 0 )
                     Navigator.push(context, MaterialPageRoute(builder: (context) => AiChatPage() ) );
                   else if( actions[index]["id"] == 1 )
                     launchURL("tel:+254712345678");
@@ -135,8 +151,20 @@ class _ContactUsPage extends State<ContactUsPage>{
             children: [
               Text("Customer Support Dashboard", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),),
               Spacer(),
-              IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPeoplePage() ) );
+              IconButton(icon: Icon(Icons.arrow_forward_ios), onPressed: () async {
+
+                var pref = await SharedPreferences.getInstance();
+                var isLoggedIn = pref.getBool('is_user_logged_in') ?? false;
+
+                if (isLoggedIn) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChatPeoplePage() ) );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                }
+
               })
             ],
           ),
