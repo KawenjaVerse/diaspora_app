@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // For icons
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Aunthentication/LoginPage.dart'; // For icons
 
 class ForumPage extends StatefulWidget {
   const ForumPage({super.key});
@@ -111,14 +114,27 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
   // Widget for the "Create Post" card at the top
   Widget _buildCreatePostCard() {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                CreatePostPage(), // Navigate to the post creation screen
-          ),
-        );
+      onTap: () async {
+
+        var pref = await SharedPreferences.getInstance();
+        var isLoggedIn = pref.getBool('is_user_logged_in') ?? false;
+
+        if (isLoggedIn) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  CreatePostPage(), // Navigate to the post creation screen
+            ),
+          );
+        } else {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+        }
+
+
       },
       child: Card(
         color: Colors.white,
