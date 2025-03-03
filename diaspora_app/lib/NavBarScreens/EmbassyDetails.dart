@@ -349,7 +349,7 @@ class _EmbassyDetailPageState extends State<EmbassyDetailPage> {
                   ),
                   _buildGridItem(
                     imagePath: 'assets/images/icons8-diaspora-96.png',
-                    label: "Diaspora Services",
+                    label: "Diaspora and Consular Services",
                     context: context,
                     navigateTo: () => Navigator.push(
                       context,
