@@ -136,13 +136,27 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundImage: imageUrl.isNotEmpty
-                  ? NetworkImage(imageUrl)
-                  : AssetImage('assets/images/default-avatar.png') as ImageProvider,
-              backgroundColor: Colors.grey.shade200,
-            ),
+           CircleAvatar(
+  radius: 40,
+  backgroundColor: Colors.grey.shade200, // Background in case of no image
+  child: ClipRRect(
+    borderRadius: BorderRadius.circular(40), // Ensures it's fully circular
+    child: imageUrl.isNotEmpty
+        ? Image.network(
+            imageUrl,
+            width: 80, // Double the radius to fit perfectly
+            height: 80,
+            fit: BoxFit.cover, // Ensures the image covers the avatar without distortion
+          )
+        : Image.asset(
+            'assets/images/default-avatar.png',
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+          ),
+  ),
+),
+
             const SizedBox(width: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

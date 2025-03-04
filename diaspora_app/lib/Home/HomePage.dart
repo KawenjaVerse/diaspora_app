@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../NavBarScreens/DiasporaRegistrationPage.dart';
+import '../NavBarScreens/DualPage.dart';
+import '../NavBarScreens/LandsPage.dart';
 import '../NavBarScreens/MarketDetails.dart';
 import '../NavBarScreens/MarketPage.dart';
 import '../NavBarScreens/MorePage.dart';
@@ -92,11 +94,11 @@ class _HomePageState extends State<HomePage> {
           children: [
 
             Image.asset(
-              'assets/images/logo.jpg',
+              'assets/images/coat.png',
               height: 30,
               fit: BoxFit.contain,
             ),
-            SizedBox(width: 5,),
+            SizedBox(width: 20,),
             Text(
               'DIASPORA UGANDA',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -181,35 +183,7 @@ class _HomeContentState extends State<HomeContent> {
 Dear Ugandans in the Diaspora,
 I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am committed to supporting your engagement with the government  and empowering  you to contribute more effectively to the development of Uganda.
     ''';
-//  final List<Attraction> attractions = [
-//       Attraction(
-//         imagePath: 'assets/images/baby.jpg',
-//         type: 'Document',
-//         name: 'How to acquire Birth Certificate',
-//         description: 'Learn the process to acquire a birth certificate in Uganda, '
-//             'including the requirements and steps needed for application.',
-//       ),
-//       Attraction(
-//         imagePath: 'assets/images/passport.jpg',
-//         type: 'Document',
-//         name: 'How to Renew your Passport in Diaspora',
-//         description: 'Find out how to renew your passport while living abroad, '
-//             'with detailed information on necessary documents and processing time.',
-//       ),
-//       Attraction(
-//         imagePath: 'assets/images/id.jpg',
-//         type: 'Document',
-//         name: 'How to get a National Id in Diaspora',
-//         description: 'The Uganda National Identification Card is a National document that is issued to all and only citizens of Uganda. The Card is a bio-metrically enhanced, machine-readable card with digitally embedded information about the holder. One’s information can ONLY be accessed by law.',
-//       ),
-//       Attraction(
-//         imagePath: 'assets/images/immg.jpg',
-//         type: 'New Application',
-//         name: 'Visa Application Assistance',
-//         description: 'Apply for a visa to Uganda with the help of our team. '
-//             'We provide assistance with the application process and required documents.',
-//       ),
-//     ];
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -396,6 +370,40 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
                 context,
                 MaterialPageRoute(
                   builder: (context) => NationalIDPage(),
+                ),
+              );
+            },
+          ),
+        ),
+      SizedBox(
+
+          width: 300,
+          child: _buildServiceCard(
+            imagePath: 'assets/images/coat.png',
+            title: 'Ministry of Lands',
+            description: 'Apply, Renew',
+            onReadMore: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LandsPage(),
+                ),
+              );
+            },
+          ),
+        ),
+        SizedBox(
+
+          width: 300,
+          child: _buildServiceCard(
+            imagePath: 'assets/images/immg.jpg',
+            title: 'Dual Citizenship',
+            description: 'Apply, Renew',
+            onReadMore: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DualPage(),
                 ),
               );
             },
