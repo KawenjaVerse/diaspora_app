@@ -55,6 +55,8 @@ dependencies:
   http: ^1.2.2
   webview_flutter: ^4.10.0
   carousel_slider: ^5.0.0
+  firebase_analytics: ^11.4.4
+  firebase_auth: ^5.5.1
  
   #videosdk_flutter_example:
     #path: "../../videosdk-rtc-flutter-sdk"
