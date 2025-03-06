@@ -158,7 +158,7 @@ Through our Diaspora Database service, we specifically aim to:
             ),
             const Spacer(),
             Image.asset(
-              'assets/images/logo.jpg',
+              'assets/images/coat.png',
               height: 30,
               width: 90,
               fit: BoxFit.contain,
