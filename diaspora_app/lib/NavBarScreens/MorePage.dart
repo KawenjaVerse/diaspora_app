@@ -10,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 
+import '../Home/ContactPage.dart';
+import '../Home/ContactUs/ContactUsPage.dart';
 import 'EditProfilePage.dart';
 
 class ProfilePage extends StatefulWidget{
@@ -131,16 +133,6 @@ Future<void> _pickImage() async {
     });
   },
 ),
-                  // _buildSettingItem(
-                  //   icon: FontAwesomeIcons.language,
-                  //   title: 'Language',
-                  //   onTap: () {},
-                  // ),
-                  // _buildSettingItem(
-                  //   icon: FontAwesomeIcons.bell,
-                  //   title: 'Notification',
-                  //   onTap: () {},
-                  // ),
                    _buildSettingItem(
                     icon: FontAwesomeIcons.signOutAlt,
                     title: 'Logout',
@@ -170,6 +162,14 @@ Future<void> _pickImage() async {
                           builder: (context) => AboutPage(),
                         ),
                       );
+                    },
+                  ),
+                  _buildSettingItem(
+                    icon: FontAwesomeIcons.contactCard,
+                    title: 'Contact Us',
+                    onTap: () {
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
                     },
                   ),
                   _buildSettingItem(

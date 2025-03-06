@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:diaspora_app/Home/ContactUs/ContactUsPage.dart';
+import 'package:diaspora_app/Home/Registration/DiasporaRegistrationPage.dart';
 import 'package:diaspora_app/NavBarScreens/EmbassyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../NavBarScreens/DiasporaRegistrationPage.dart';
 import '../NavBarScreens/DualPage.dart';
 import '../NavBarScreens/LandsPage.dart';
 import '../NavBarScreens/MarketDetails.dart';
@@ -384,7 +384,8 @@ class _HomeContentState extends State<HomeContent> {
 
 
                      Padding(
-              padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
+
+              padding: const EdgeInsets.only(top: 8.0, right: 15, left: 15),
               child: GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -472,7 +473,8 @@ class _HomeContentState extends State<HomeContent> {
  ,
    floatingActionButton: GestureDetector(
         onTap: (){
-           Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
+           //Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
+           Navigator.push(context, MaterialPageRoute(builder: (context) => DiasporaRegistrationPage() ) );
         },
         child: Card(
             color: Colors.orange,
@@ -482,9 +484,12 @@ class _HomeContentState extends State<HomeContent> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.support_agent),
+                  //Icon(Icons.support_agent),
+                  //SizedBox(width: 8,),
+                  //Text("Contact Us", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Icon(Icons.app_registration),
                   SizedBox(width: 8,),
-                  Text("Contact Us", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text("Diaspora Registration", style: TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
             )),
@@ -1029,26 +1034,34 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
         child: Container(
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            color: const Color(0xFFFF5C23), // Red background
+            color: Colors.black12, // Red background
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(
-                imagePath,
-                height: 40,
-                width: 40,
-                fit: BoxFit.cover,
-                color: Colors.white,
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                child: Image.asset(
+                  imagePath,
+                  height: 25,
+                  width: 25,
+                  fit: BoxFit.cover,
+                  color: Colors.orange,
+                ),
               ),
               const SizedBox(height: 6.0),
               Text(
                 title,
                 style: const TextStyle(
-                  fontSize: 17,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colors.black,
                 ), // White text
               ),
             ],
