@@ -6,6 +6,10 @@
     <string>$(PRODUCT_NAME) wants to use your Camera to take pictures that will be shared with others!</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>$(PRODUCT_NAME) wants to use your Microphone to record audio be shared with others!</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>$(PRODUCT_NAME) wants to pick content from your phone library to be shared with others!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>$(PRODUCT_NAME) wants to use your Location to personalise your content in the app!</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
