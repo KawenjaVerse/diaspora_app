@@ -75,7 +75,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       image: DecorationImage(
-                        image: AssetImage('assets/images/logo.jpg'), // Your logo image
+                        image: AssetImage('assets/images/coat.png'), // Your logo image
                         fit: BoxFit.cover,
                       ),
                       color: Colors.white, // White circle background
@@ -142,17 +142,5 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
     Navigator.pushReplacementNamed(context, '/home');
     return;
 
-    var pref = await SharedPreferences.getInstance();
-    var isLoggedIn = pref.getBool('is_user_logged_in') ?? false;
-
-    if (isLoggedIn) {
-      Navigator.pushReplacementNamed(context, '/home');
-      return;
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-    }
   }
 }

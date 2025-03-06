@@ -1,3 +1,4 @@
+import 'package:diaspora_app/Aunthentication/LoginPage.dart';
 import 'package:diaspora_app/SplashPage.dart';
 import 'package:diaspora_app/utils/Helper.dart';
 import 'package:flutter/material.dart';
@@ -144,7 +145,7 @@ Future<void> _pickImage() async {
                     onTap: () {
                       // Handle logout action
                       logoutPerson(context);
-                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SplashPage() ), (route) => false);
+                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginPage() ), (route) => false);
                     },
                   ),
                 ],
