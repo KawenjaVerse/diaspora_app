@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
     var successEmail = await Navigator.push(context, MaterialPageRoute(builder: (context) => OtpEmailPage(email: _email,) ) );
     if(successEmail == null || successEmail == false){ return; }
 
-    return;
+    //return;
 
     print("Registering...");
     requestAPI("people/register", {
