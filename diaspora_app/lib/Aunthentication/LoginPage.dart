@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
     children: [
       const Text(
         "Password",
-        style: TextStyle(color: Colors.black54, fontSize: 12.0), // Smaller font size for the label
+        style: TextStyle(color: Colors.black54, fontSize: 14.0), // Smaller font size for the label
       ),
       SizedBox(
         height: 20.0,
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   border: InputBorder.none,
                   isDense: true, // Reduces the internal padding of the TextField
                 ),
-                style: TextStyle(fontSize: 12.0), // Smaller font size for the TextField
+                style: TextStyle(fontSize: 14.0), // Smaller font size for the TextField
               ),
             ),
             IconButton(
