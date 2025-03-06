@@ -1,4 +1,6 @@
 import 'package:diaspora_app/Aunthentication/LoginPage.dart';
+import 'package:diaspora_app/Home/AboutPage.dart';
+import 'package:diaspora_app/Home/GalleryPage.dart';
 import 'package:diaspora_app/SplashPage.dart';
 import 'package:diaspora_app/utils/Helper.dart';
 import 'package:flutter/material.dart';
@@ -154,63 +156,41 @@ Future<void> _pickImage() async {
               const SizedBox(height: 16),
 
               // Wishlist, Currency Converter Section
-              // buildSettingsSection(
-              //   context,
-              //   title: 'Other Options',
-              //   items: [
-              //     _buildSettingItem(
-              //       icon: FontAwesomeIcons.heart,
-              //       title: 'Wishlist',
-              //       onTap: () {},
-              //     ),
-              //     _buildSettingItem(
-              //       icon: FontAwesomeIcons.exchangeAlt,
-              //       title: 'Currency Converter',
-              //       onTap: () {},
-              //     ),
-              //   ],
-              // ),
+              buildSettingsSection(
+                context,
+                title: 'Other Options',
+                items: [
+                  _buildSettingItem(
+                    icon: Icons.info,
+                    title: 'About Us',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AboutPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  _buildSettingItem(
+                    icon: Icons.photo_size_select_actual_rounded,
+                    title: 'Gallery',
+                    onTap: () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GalleryPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
 
 
               const SizedBox(height: 16),
 
-              // Rating, Support, Quicklinks, Privacy Policy, Logout Section
-              // buildSettingsSection(
-              //   context,
-              //   title: 'Account Settings',
-              //   items: [
-              //     _buildSettingItem(
-              //       icon: FontAwesomeIcons.star,
-              //       title: 'Rating',
-              //       onTap: () {},
-              //     ),
-              //     _buildSettingItem(
-              //       icon: FontAwesomeIcons.headset,
-              //       title: 'Support',
-              //       onTap: () {},
-              //     ),
-              //     _buildSettingItem(
-              //       icon: FontAwesomeIcons.link,
-              //       title: 'Quicklinks',
-              //       onTap: () {},
-              //     ),
-              //     _buildSettingItem(
-              //       icon: FontAwesomeIcons.shieldAlt,
-              //       title: 'Privacy Policy',
-              //       onTap: () {},
-              //     ),
-              //     _buildSettingItem(
-              //       icon: FontAwesomeIcons.signOutAlt,
-              //       title: 'Logout',
-              //       onTap: () {
-              //         // Handle logout action
-              //         logoutPerson(context);
-              //          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => SplashPage() ), (route) => false);
-              //       },
-              //     ),
-              //   ],
-              // ),
-            
+             
             ],
           ),
         ),

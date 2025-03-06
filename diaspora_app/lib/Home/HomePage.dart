@@ -56,7 +56,29 @@ class _HomePageState extends State<HomePage> {
     const MarketPage(), // Market
     ProfilePage(), // More
   ];
-  
+   final String _headName = "Mohammed Bagonza";
+  final String _headTitle = "HEAD OF DIASPORA UNIT STATE HOUSE";
+  final String _headImage = 'assets/images/head.jpg';
+  final String _welcomeMessage = '''
+Dear Ugandans in the Diaspora,
+
+I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am committed to supporting your engagement with the government  and empowering  you to contribute more effectively to the development of Uganda.
+
+Our mission is to create an enabling environment that promotes Diaspora engagement, provides access to information and services, and strengthens the relationship between the government and Ugandans living abroad. We recognize the valuable contributions that you, as Ugandans living abroad, make to the country’s economy, and we are committed to addressing the challenges you face in accessing government services and information.
+
+Through this Unit, we aim to provide you with information on government policies, programs, and investment opportunities and provide a platform for you to interact with government representatives, share your concerns and feedback, and participate in national affairs.
+
+Our mandate is to facilitate your engagement with the government on issues of mutual interest, coordinate the flow of communication between you and relevant government agencies, advocate for your interests, and provide you with support and assistance.
+
+We are committed to establishing an effective and responsive Unit that is accountable to you and the government. We believe that by working together, we can build a stronger and more prosperous Uganda.
+
+I encourage you to explore our website, engage with us, and provide us with feedback on how we can improve our services to you. I look forward to working together with you to achieve our shared vision of a better Uganda for all.
+
+Sincerely,
+
+Mohammed Bagonza
+Head of Diaspora Unit   
+    ''';
 
   @override
   void dispose() {
@@ -87,6 +109,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.transparent),
         title: Row(
@@ -104,6 +127,20 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Spacer(),
+            GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HeadMessagePage(
+                            headName: _headName,
+                            headTitle: _headTitle,
+                            headImage: _headImage,
+                            welcomeMessage: _welcomeMessage,
+                          )));
+                },
+                child: Icon(Icons.chat,color: Color(0xFFFF5C23),)),
+                SizedBox(width: 20,),
             GestureDetector(
                 onTap: (){
                   Navigator.push(
@@ -136,28 +173,48 @@ class _HomePageState extends State<HomePage> {
           _currentIndex = index;
         });
       },
-      items: const [
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black,
-            icon: Icon(Icons.home_filled),
-            label: 'Home'),
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black,
-            icon: Icon(Icons.calendar_month),
-            label: 'Tourism'),
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black,
-            icon: Icon(Icons.public),
-            label: 'Embassies'),
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black,
-            icon: Icon(Icons.shopping_cart),
-            label: 'Support'),
-        BottomNavigationBarItem(
-            backgroundColor: Colors.black,
-            icon: Icon(Icons.more_horiz),
-            label: 'More'),
-      ],
+     items: const [
+  BottomNavigationBarItem(
+    backgroundColor: Colors.black,
+    icon: ImageIcon(
+      AssetImage('assets/images/homed.png'), // Path to home icon
+      size: 24, // Adjust size as needed
+    ),
+    label: 'Home',
+  ),
+  BottomNavigationBarItem(
+    backgroundColor: Colors.black,
+    icon: ImageIcon(
+      AssetImage('assets/images/tourism.png'), // Path to tourism icon
+      size: 24,
+    ),
+    label: 'Tourism',
+  ),
+  BottomNavigationBarItem(
+    backgroundColor: Colors.black,
+    icon: ImageIcon(
+      AssetImage('assets/images/embassy.png'), // Path to embassies icon
+      size: 24,
+    ),
+    label: 'Embassies',
+  ),
+  BottomNavigationBarItem(
+    backgroundColor: Colors.black,
+    icon: ImageIcon(
+      AssetImage('assets/images/support.png'), // Path to support icon
+      size: 24,
+    ),
+    label: 'Support',
+  ),
+  BottomNavigationBarItem(
+    backgroundColor: Colors.black,
+    icon: ImageIcon(
+      AssetImage('assets/images/more.png'), // Path to more icon
+      size: 24,
+    ),
+    label: 'More',
+  ),
+],
     );
   }
 }
@@ -176,13 +233,7 @@ class _HomeContentState extends State<HomeContent> {
   late Timer _timer;
 
   // Head of Organization Data
-  final String _headName = "Mohammed Bagonza";
-  final String _headTitle = "HEAD OF DIASPORA UNIT STATE HOUSE";
-  final String _headImage = 'assets/images/bagonza.jpg';
-  final String _welcomeMessage = '''
-Dear Ugandans in the Diaspora,
-I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am committed to supporting your engagement with the government  and empowering  you to contribute more effectively to the development of Uganda.
-    ''';
+ 
 
   @override
   void dispose() {
@@ -216,90 +267,7 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeadCard(),
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0,top: 12,bottom: 12),
-              child: Text('Latest News',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xFFFF5C23)
-              ),),
-            ),
-            SizedBox(
-              height: 200,
-
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: 4,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return _buildSliderItem(context, index);
-                },
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SmoothPageIndicator(
-                  controller: _pageController,
-                  count: 4,
-                  effect: const ExpandingDotsEffect(
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    activeDotColor: Colors.black,
-                    dotColor: Colors.grey,
-                    spacing: 8,
-                    expansionFactor: 3,
-                  ),
-                  onDotClicked: (index) {
-                    _pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  },
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
-              child: GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1.8,
-                children: [
-                  _buildGridItem('Services', 'assets/images/setting.png'),
-                  _buildGridItem('Forum', 'assets/images/forum.png'),
-                  _buildGridItem('Contact Us', 'assets/images/contact.png'),
-                  _buildGridItem('About Us', 'assets/images/about.png'),
-                  _buildGridItem('Events', 'assets/images/events.png'),
-                  _buildGridItem('Gallery', 'assets/images/gallery.png'),
-
-                ],
-              ),
-            ),
-            SizedBox(height: 8,),
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0,top: 16),
-              child: const Text(
-                "Services",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFFF5C23)
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 3,
-            ),
-
+            
  SizedBox(
   height: 250,
   child: SingleChildScrollView(
@@ -415,6 +383,91 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
  ),
 
 
+                     Padding(
+              padding: const EdgeInsets.only(top: 8.0, right: 8, left: 8),
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+                childAspectRatio: 1.8,
+                children: [
+                  _buildGridItem('Services', 'assets/images/setting.png'),
+                  _buildGridItem('Forum', 'assets/images/forum.png'),
+                  _buildGridItem('Contact Us', 'assets/images/contact.png'),
+                  
+                  _buildGridItem('Events', 'assets/images/events.png'),
+                  
+
+                ],
+              ),
+            ),
+            SizedBox(height: 8,),
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 12.0,top: 16),
+            //   child: const Text(
+            //     "Services",
+            //     textAlign: TextAlign.start,
+            //     style: TextStyle(
+            //         fontSize: 16,
+            //         fontWeight: FontWeight.bold,
+            //         color: Color(0xFFFF5C23)
+            //     ),
+            //   ),
+            // ),
+          
+            const SizedBox(
+              height: 3,
+            ),
+             Padding(
+              padding: const EdgeInsets.only(left: 12.0,top: 12,bottom: 12),
+              child: Text('Latest News',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xFFFF5C23)
+              ),),
+            ),
+            SizedBox(
+              height: 200,
+
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: 4,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentPage = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return _buildSliderItem(context, index);
+                },
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SmoothPageIndicator(
+                  controller: _pageController,
+                  count: 4,
+                  effect: const ExpandingDotsEffect(
+                    dotHeight: 8,
+                    dotWidth: 8,
+                    activeDotColor: Colors.black,
+                    dotColor: Colors.grey,
+                    spacing: 8,
+                    expansionFactor: 3,
+                  ),
+                  onDotClicked: (index) {
+                    _pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                ),
+              ),
+            ),
+
+  
+
  ] ))
  ,
    floatingActionButton: GestureDetector(
@@ -524,74 +577,7 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
 
 
 
-  Widget _buildHeadCard() {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-        side: const BorderSide(color: Color(0xFFFF5C23), width: 2.0),
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.yellow, width: 2)),
-              child: CircleAvatar(
-                backgroundImage: AssetImage(_headImage),
-                radius: 40,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _headName,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    _headTitle,
-                    style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-                  ),
-                  const SizedBox(height: 8),
-                  Align(
-                      alignment: Alignment.bottomRight,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HeadMessagePage(
-                                    headName: _headName,
-                                    headTitle: _headTitle,
-                                    headImage: _headImage,
-                                    welcomeMessage: _welcomeMessage,
-                                  )));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFFF5C23),
-                        ),
-                        child: const Text(
-                          'Message from Head',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ))
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
+  
   Widget _buildSliderItem(BuildContext context, int index) {
     final List<String> images = [
       'assets/images/news1.jpg',

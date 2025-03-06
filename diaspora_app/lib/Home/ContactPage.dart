@@ -53,7 +53,7 @@ class _ContactPageState extends State<ContactPage> {
             Spacer(),
            
 Image.asset(
-                'assets/images/logo.jpg',
+                'assets/images/coat.png',
                 height: 30,
                 width: 90,
                 fit: BoxFit.contain,

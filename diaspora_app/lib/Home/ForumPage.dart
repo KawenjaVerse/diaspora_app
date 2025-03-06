@@ -87,7 +87,7 @@ I am pleased to welcome you to the Diaspora Unit. As the head of the  Unit, I am
             ),
             const Spacer(),
             Image.asset(
-              'assets/images/logo.jpg',
+              'assets/images/coat.png',
               height: 30,
               width: 90,
               fit: BoxFit.contain,
