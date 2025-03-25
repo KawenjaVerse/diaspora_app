@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:diaspora_app/Home/ContactUs/ContactUsPage.dart';
+import 'package:diaspora_app/Home/Forum/ForumPage.dart';
 import 'package:diaspora_app/Home/Registration/DiasporaRegistrationPage.dart';
 import 'package:diaspora_app/NavBarScreens/EmbassyPage.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,6 @@ import '../NavBarScreens/VisaPage.dart';
 import 'AboutPage.dart';
 import 'ContactPage.dart';
 import 'EventsPage.dart';
-import 'ForumPage.dart';
 import 'GalleryPage.dart';
 import 'HeadMessage.dart';
 

@@ -166,6 +166,66 @@ Widget artyTechButtonFilled(String text, Function() onPressed){
   );
 }
 
+Widget artyTechDropDown(String text, String current,  dynamic items , Function(String) onSaved,{ IconData? prefixIcon, keyboardType = TextInputType.text, String? currentValue }){
+  var children = [];
+  children = items;
+  return Container(
+    margin: EdgeInsets.all(smallMargin),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3),
+          child: Wrap(
+            children: [
+              Text("$text", style: TextStyle(color: mainColor, fontSize: 15, fontWeight: FontWeight.bold),),
+              SizedBox(width: 5,),
+              if( currentValue != null )
+                Text("Current: $currentValue", style: TextStyle(fontSize: 12, color : Colors.green ),),
+            ],
+          ),
+        ),
+
+        ListView.builder(
+          shrinkWrap: true,
+          primary: false,
+          itemCount: children.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: (){
+                current = children[index];
+                onSaved(current!);
+              },
+              child: Container(
+                  decoration: boxDecoration,
+                  padding: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(2),
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      if(current == children[index])
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.check, color: mainColor,size: 23,),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text(children[index]),
+                      ),
+                    ],
+                  )),
+            );
+          },
+        ),
+
+
+
+
+      ],
+    ),
+  );
+}
+
 Widget artyTechButtonOvalFilled(String text, Function() onPressed){
   return GestureDetector(
     onTap: onPressed,

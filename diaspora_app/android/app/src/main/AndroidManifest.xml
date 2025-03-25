@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
-        android:label="diaspora_app"
+        android:label="Diaspora UG App"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
 

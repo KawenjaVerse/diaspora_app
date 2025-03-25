@@ -74,7 +74,7 @@ import 'package:flutter/material.dart';
         return AlertDialog(
           title: const Text('Passport Application Follow-up'),
           content: const Text(
-            'After applying for the passport, please contact the passport team for further assistance and easy follow-up via: +256703034758',
+            'After applying for the passport, please contact the passport team for further assistance and easy follow-up via: +256 414 674 906, info@diasporaaffairs.go.ug',
           ),
           actions: <Widget>[
             TextButton(

@@ -104,6 +104,26 @@ class _DiasporaRegistrationPage extends State<DiasporaRegistrationPage>{
 
   var _loading = false;
   void action() {
+
+    //country, surname, given names,
+    if(_country.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Country is required"), backgroundColor: Colors.red,));
+      return;
+    }
+
+    if(_surname.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Surname is required"), backgroundColor: Colors.red,));
+      return;
+    }
+
+    if(_givenNames.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Given names are required"), backgroundColor: Colors.red,));
+      return;
+    }
+
+
+
+
     //send data
     //diaspora/register
     requestAPI("diaspora/register", {

@@ -74,7 +74,7 @@ class _NationalIDPageState extends State<NationalIDPage> {
         return AlertDialog(
           title: const Text('National ID Appointment Follow-up'),
           content: const Text(
-            'After booking your appointment, please contact the National ID team for further assistance and easy follow-up via: +256703034758',
+            'After booking your appointment, please contact the National ID team for further assistance and easy follow-up via: +256 414 674 906, info@diasporaaffairs.go.ug',
           ),
           actions: <Widget>[
             TextButton(

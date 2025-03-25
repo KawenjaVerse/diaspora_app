@@ -4,6 +4,7 @@ import 'package:diaspora_app/utils/Helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../Home/HomePage.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -59,7 +60,10 @@ class _RegisterPageState extends State<RegisterPage> {
     }, (value) {
       if (value["status"] == "success") {
         savePersonInPreference(value["data"]);
-        Navigator.pop(context);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+                (route) => false);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(value["message"]),
