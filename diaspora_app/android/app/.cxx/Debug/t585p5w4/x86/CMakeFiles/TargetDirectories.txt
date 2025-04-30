@@ -1,0 +1,2 @@
+/Users/skullselector/Documents/Projects/diaspora_app/diaspora_app/android/app/.cxx/Debug/t585p5w4/x86/CMakeFiles/edit_cache.dir
+/Users/skullselector/Documents/Projects/diaspora_app/diaspora_app/android/app/.cxx/Debug/t585p5w4/x86/CMakeFiles/rebuild_cache.dir

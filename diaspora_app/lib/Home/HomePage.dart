@@ -1,8 +1,12 @@
 import 'dart:async';
 
+import 'package:diaspora_app/Home/BouPage.dart';
 import 'package:diaspora_app/Home/ContactUs/ContactUsPage.dart';
 import 'package:diaspora_app/Home/Forum/ForumPage.dart';
+import 'package:diaspora_app/Home/NssfPage.dart';
+import 'package:diaspora_app/Home/PlanPage.dart';
 import 'package:diaspora_app/Home/Registration/DiasporaRegistrationPage.dart';
+import 'package:diaspora_app/Home/UrsbPage.dart';
 import 'package:diaspora_app/NavBarScreens/EmbassyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,8 +34,6 @@ import 'Notification.dart';
 import 'ServiceDetails.dart';
 import 'ServicesPage.dart';
 
-
-
 // Import the new page
 
 class HomePage extends StatefulWidget {
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
     const MarketPage(), // Market
     ProfilePage(), // More
   ];
-   final String _headName = "Mohammed Bagonza";
+  final String _headName = "Mohammed Bagonza";
   final String _headTitle = "HEAD OF DIASPORA UNIT STATE HOUSE";
   final String _headImage = 'assets/images/head.jpg';
   final String _welcomeMessage = '''
@@ -113,42 +115,50 @@ Head of Diaspora Unit
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.transparent),
         title: Row(
-
           children: [
-
             Image.asset(
               'assets/images/coat.png',
               height: 30,
               fit: BoxFit.contain,
             ),
-            SizedBox(width: 20,),
+            SizedBox(
+              width: 20,
+            ),
             Text(
               'DIASPORA UGANDA',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Spacer(),
             GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => HeadMessagePage(
-                            headName: _headName,
-                            headTitle: _headTitle,
-                            headImage: _headImage,
-                            welcomeMessage: _welcomeMessage,
-                          )));
+                                headName: _headName,
+                                headTitle: _headTitle,
+                                headImage: _headImage,
+                                welcomeMessage: _welcomeMessage,
+                              )));
                 },
-                child: Icon(Icons.chat,color: Color(0xFFFF5C23),)),
-                SizedBox(width: 20,),
+                child: Icon(
+                  Icons.chat,
+                  color: Color(0xFFFF5C23),
+                )),
+            SizedBox(
+              width: 20,
+            ),
             GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => NotificationPage()));
                 },
-                child: Icon(Icons.notifications,color: Color(0xFFFF5C23),))
+                child: Icon(
+                  Icons.notifications,
+                  color: Color(0xFFFF5C23),
+                ))
           ],
         ),
       ),
@@ -173,52 +183,51 @@ Head of Diaspora Unit
           _currentIndex = index;
         });
       },
-     items: const [
-  BottomNavigationBarItem(
-    backgroundColor: Colors.black,
-    icon: ImageIcon(
-      AssetImage('assets/images/homed.png'), // Path to home icon
-      size: 24, // Adjust size as needed
-    ),
-    label: 'Home',
-  ),
-  BottomNavigationBarItem(
-    backgroundColor: Colors.black,
-    icon: ImageIcon(
-      AssetImage('assets/images/tourism.png'), // Path to tourism icon
-      size: 24,
-    ),
-    label: 'Tourism',
-  ),
-  BottomNavigationBarItem(
-    backgroundColor: Colors.black,
-    icon: ImageIcon(
-      AssetImage('assets/images/embassy.png'), // Path to embassies icon
-      size: 24,
-    ),
-    label: 'Embassies',
-  ),
-  BottomNavigationBarItem(
-    backgroundColor: Colors.black,
-    icon: ImageIcon(
-      AssetImage('assets/images/support.png'), // Path to support icon
-      size: 24,
-    ),
-    label: 'Support',
-  ),
-  BottomNavigationBarItem(
-    backgroundColor: Colors.black,
-    icon: ImageIcon(
-      AssetImage('assets/images/more.png'), // Path to more icon
-      size: 24,
-    ),
-    label: 'More',
-  ),
-],
+      items: const [
+        BottomNavigationBarItem(
+          backgroundColor: Colors.black,
+          icon: ImageIcon(
+            AssetImage('assets/images/homed.png'), // Path to home icon
+            size: 24, // Adjust size as needed
+          ),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          backgroundColor: Colors.black,
+          icon: ImageIcon(
+            AssetImage('assets/images/tourism.png'), // Path to tourism icon
+            size: 24,
+          ),
+          label: 'Tourism',
+        ),
+        BottomNavigationBarItem(
+          backgroundColor: Colors.black,
+          icon: ImageIcon(
+            AssetImage('assets/images/embassy.png'), // Path to embassies icon
+            size: 24,
+          ),
+          label: 'Embassies',
+        ),
+        BottomNavigationBarItem(
+          backgroundColor: Colors.black,
+          icon: ImageIcon(
+            AssetImage('assets/images/support.png'), // Path to support icon
+            size: 24,
+          ),
+          label: 'Support',
+        ),
+        BottomNavigationBarItem(
+          backgroundColor: Colors.black,
+          icon: ImageIcon(
+            AssetImage('assets/images/more.png'), // Path to more icon
+            size: 24,
+          ),
+          label: 'More',
+        ),
+      ],
     );
   }
 }
-
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
@@ -233,7 +242,6 @@ class _HomeContentState extends State<HomeContent> {
   late Timer _timer;
 
   // Head of Organization Data
- 
 
   @override
   void dispose() {
@@ -260,226 +268,285 @@ class _HomeContentState extends State<HomeContent> {
     super.initState();
     _startAutoSlide();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            
- SizedBox(
-  height: 250,
-  child: SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    padding: EdgeInsets.all(8),
-    child: Row(
-   crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(
-          width: 300,
-          child: _buildServiceCard(
-            imagePath: 'assets/images/uia.jpg',
-            title: 'Investments',
-            description: 'Investments in Uganda',
-            onReadMore: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => InvestPage(),
-                ),
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          width: 300,
-          child: _buildServiceCard(
-            imagePath: 'assets/images/immg.jpg',
-            title: 'Visas',
-            description: 'New Application',
-            onReadMore: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => VisaPage(),
-                ),
-              );
-            },
-          ),
-        ),
-        
-        SizedBox(
-
-          width: 300,
-          child: _buildServiceCard(
-            imagePath: 'assets/images/pssprt.jpg',
-            title: 'Passports',
-            description: 'Apply, Renew',
-            onReadMore: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PassportPage(),
-                ),
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          width: 300,
-          child: _buildServiceCard(
-            imagePath: 'assets/images/nat.jpg',
-            title: 'National ID',
-            description: 'National ID Appointment',
-            onReadMore: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NationalIDPage(),
-                ),
-              );
-            },
-          ),
-        ),
-      SizedBox(
-
-          width: 300,
-          child: _buildServiceCard(
-            imagePath: 'assets/images/coat.png',
-            title: 'Ministry of Lands',
-            description: 'Apply, Renew',
-            onReadMore: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LandsPage(),
-                ),
-              );
-            },
-          ),
-        ),
-        SizedBox(
-
-          width: 300,
-          child: _buildServiceCard(
-            imagePath: 'assets/images/immg.jpg',
-            title: 'Dual Citizenship',
-            description: 'Apply, Renew',
-            onReadMore: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DualPage(),
-                ),
-              );
-            },
-          ),
-        ),
-      ],
-    ),
-  ),
- ),
-
-
-                     Padding(
-
-              padding: const EdgeInsets.only(top: 8.0, right: 15, left: 15),
-              child: GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 1.8,
-                children: [
-                  _buildGridItem('Services', 'assets/images/setting.png'),
-                  _buildGridItem('Forum', 'assets/images/forum.png'),
-                  _buildGridItem('Contact Us', 'assets/images/contact.png'),
-                  
-                  _buildGridItem('Events', 'assets/images/events.png'),
-                  
-
-                ],
-              ),
-            ),
-            SizedBox(height: 8,),
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 12.0,top: 16),
-            //   child: const Text(
-            //     "Services",
-            //     textAlign: TextAlign.start,
-            //     style: TextStyle(
-            //         fontSize: 16,
-            //         fontWeight: FontWeight.bold,
-            //         color: Color(0xFFFF5C23)
-            //     ),
-            //   ),
-            // ),
-          
-            const SizedBox(
-              height: 3,
-            ),
-             Padding(
-              padding: const EdgeInsets.only(left: 12.0,top: 12,bottom: 12),
-              child: Text('Latest News',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xFFFF5C23)
-              ),),
-            ),
-            SizedBox(
-              height: 200,
-
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: 4,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentPage = index;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return _buildSliderItem(context, index);
-                },
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SmoothPageIndicator(
-                  controller: _pageController,
-                  count: 4,
-                  effect: const ExpandingDotsEffect(
-                    dotHeight: 8,
-                    dotWidth: 8,
-                    activeDotColor: Colors.black,
-                    dotColor: Colors.grey,
-                    spacing: 8,
-                    expansionFactor: 3,
+          height: 250,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.all(8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/uia.jpg',
+                    title: 'Investments',
+                    description: 'Investments in Uganda',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => InvestPage(),
+                        ),
+                      );
+                    },
                   ),
-                  onDotClicked: (index) {
-                    _pageController.animateToPage(
-                      index,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  },
                 ),
-              ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/immg.jpg',
+                    title: 'Visas',
+                    description: 'New Application',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => VisaPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/pssprt.jpg',
+                    title: 'Passports',
+                    description: 'Apply, Renew',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PassportPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/nat.jpg',
+                    title: 'National ID',
+                    description: 'National ID Appointment',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NationalIDPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/coat.png',
+                    title: 'Ministry of Lands',
+                    description: 'Apply, Renew',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LandsPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/immg.jpg',
+                    title: 'Dual Citizenship',
+                    description: 'Apply, Renew',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DualPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/ursblogo.png',
+                    title: 'URSB',
+                    description: 'Uganda Registration Services Bureau',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UrsbPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/BOU.png',
+                    title: 'Bank of Uganda',
+                    description: 'Services',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BouPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/nssf.png',
+                    title: 'NSSF',
+                    description: 'National Social Security Fund',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NssfPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: _buildServiceCard(
+                    imagePath: 'assets/images/national.png',
+                    title: 'National Planning Authority',
+                    description: 'Contact Us',
+                    onReadMore: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlanPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
+          ),
+        ),
 
-  
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, right: 15, left: 15),
+          child: GridView.count(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 1.8,
+            children: [
+              _buildGridItem('Services', 'assets/images/setting.png'),
+              _buildGridItem('Forum', 'assets/images/forum.png'),
+              _buildGridItem('Contact Us', 'assets/images/contact.png'),
+              _buildGridItem('Events', 'assets/images/events.png'),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 12.0,top: 16),
+        //   child: const Text(
+        //     "Services",
+        //     textAlign: TextAlign.start,
+        //     style: TextStyle(
+        //         fontSize: 16,
+        //         fontWeight: FontWeight.bold,
+        //         color: Color(0xFFFF5C23)
+        //     ),
+        //   ),
+        // ),
 
- ] ))
- ,
-   floatingActionButton: GestureDetector(
-        onTap: (){
-           //Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
-           Navigator.push(context, MaterialPageRoute(builder: (context) => DiasporaRegistrationPage() ) );
+        const SizedBox(
+          height: 3,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 12.0, top: 12, bottom: 12),
+          child: Text(
+            'Latest News',
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFFF5C23)),
+          ),
+        ),
+        SizedBox(
+          height: 200,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: 4,
+            onPageChanged: (index) {
+              setState(() {
+                _currentPage = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              return _buildSliderItem(context, index);
+            },
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SmoothPageIndicator(
+              controller: _pageController,
+              count: 4,
+              effect: const ExpandingDotsEffect(
+                dotHeight: 8,
+                dotWidth: 8,
+                activeDotColor: Colors.black,
+                dotColor: Colors.grey,
+                spacing: 8,
+                expansionFactor: 3,
+              ),
+              onDotClicked: (index) {
+                _pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
+            ),
+          ),
+        ),
+      ])),
+      floatingActionButton: GestureDetector(
+        onTap: () {
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DiasporaRegistrationPage()));
         },
         child: Card(
             color: Colors.orange,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 20),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -488,25 +555,28 @@ class _HomeContentState extends State<HomeContent> {
                   //SizedBox(width: 8,),
                   //Text("Contact Us", style: TextStyle(fontWeight: FontWeight.bold),),
                   Icon(Icons.app_registration),
-                  SizedBox(width: 8,),
-                  Text("Diaspora Registration", style: TextStyle(fontWeight: FontWeight.bold),),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "Diaspora Registration",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             )),
       ),
-   
- 
- );}
+    );
+  }
 
- Widget _buildServiceCard({
+  Widget _buildServiceCard({
     required String imagePath,
     required String title,
     required String description,
     required VoidCallback onReadMore,
   }) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 10),
-      
+      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         color: Colors.white,
@@ -518,7 +588,6 @@ class _HomeContentState extends State<HomeContent> {
           ),
         ],
       ),
-      
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -527,9 +596,9 @@ class _HomeContentState extends State<HomeContent> {
             // Service Image
             Image.asset(
               imagePath,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
+              width: 70,
+              height: 70,
+              fit: BoxFit.contain,
             ),
             const SizedBox(width: 16),
             // Service Details
@@ -540,7 +609,7 @@ class _HomeContentState extends State<HomeContent> {
                   Text(
                     title,
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.black87,
                     ),
@@ -561,14 +630,15 @@ class _HomeContentState extends State<HomeContent> {
                     style: TextButton.styleFrom(
                       padding: const EdgeInsets.all(8.0),
                       backgroundColor: const Color(0xFFFF5C23),
-                     foregroundColor: Colors.white,
+                      foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: const Text(
                       'Read More',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -580,9 +650,6 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-
-
-  
   Widget _buildSliderItem(BuildContext context, int index) {
     final List<String> images = [
       'assets/images/news1.jpg',
@@ -593,9 +660,9 @@ class _HomeContentState extends State<HomeContent> {
 
     final List<Map<String, String>> newsItems = [
       {
-        'title': 'Museveni ready to support skilled Ugandan returnees from Turkey',
-        'description':
-        ''' 
+        'title':
+            'Museveni ready to support skilled Ugandan returnees from Turkey',
+        'description': '''
           The Senior Presidential Advisor to the President and Head of Diaspora Unit of State House, Mohammed Bagonza, has told returnees from Turkey President Yoweri Museveni is ready to utilize the skills they learnt abroad for the country’s socio-economic transformation.
 
 Bagonza was on Monday meeting leaders of the returnees from Turkey at his office in Kampala when he told them the president had set up various hubs and innovation centres, where their skills can be maximally utilized.
@@ -628,9 +695,9 @@ So far thousands of disadvantaged youth have graduated from the hubs with differ
           ''',
       },
       {
-        'title': 'State House officials, US professor discuss job opportunities in America',
-        'description':
-        '''
+        'title':
+            'State House officials, US professor discuss job opportunities in America',
+        'description': '''
           Officials from State House have held discussions with a top American university over the possibility of recruiting Ugandans to work as nurses in the United States, where there is a shortage of about 100,000 nurses.
 
 The team from State House which was led by the Senior Presidential Advisor and head of the Diaspora Unit, Mohammed Bagonza, met with Kennesaw State University Dean, Dr Monica Swahn, and other leaders of a local organisation, Uganda Youth Development Link (UYDL) in Kampala recently.
@@ -660,8 +727,7 @@ According to the Senior Presidential Advisor, currently Uganda does not have any
       },
       {
         'title': 'Vice President Alupo lauds Ugandans in southern Africa',
-        'description':
-        ''' 
+        'description': '''
           Johannesburg. The Vice President, Jessica Alupo, has received a formal invitation on behalf of President Yoweri Museveni to attend the highly anticipated Second Convention of Ugandans in Southern Africa (COUSA), which will be held in October 2024 in Pretoria, South Africa.
 
 The formal invitation was presented by Uganda’s High Commissioner to South Africa Amb. Paul Amoru in the company of Deputy High Commissioner Amb. Kintu Nyago and Mr. Phillips Kakuru, a Board member of COUSA. 
@@ -715,8 +781,7 @@ Below is the pictorial from the meeting between VP Alupo, Amb. Amoru and COUSA.
       },
       {
         'title': 'Invest Back Home, President Museveni Urged Ugandans',
-        'description':
-        ''' 
+        'description': '''
          The President made the call while closing the second annual edition of the 2023 Canada National Resistance Movement (NRM) Chapter Symposium in a virtual meeting held at State Lodge- Nakasero on Sunday, 13th August 2023.
 
 The two -day symposium which took place in Toronto, Canada, ran under the theme: “Dialogue, Unity and a Prosperous Diaspora”.
@@ -784,79 +849,77 @@ President Museveni, who also serves as the National chairman of the NRM, informe
       ),
     );
   }
-  
-Widget buildMinistryCard({
-  required String title,
-  required String imagePath,
-  required String url,
-}) {
-  return GestureDetector(
-    onTap: () async {
-      final Uri _url = Uri.parse(url); // Convert string URL to Uri
-      if (await canLaunchUrl(_url)) { // Check if the URL can be launched
-        await launchUrl(_url); // Open the URL
-      } else {
-        throw 'Could not launch $url'; // Error if URL can't be opened
-      }
-    },
-    child: Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-      padding: const EdgeInsets.all(16),
-      width: 200, // Dynamic width for consistent layout
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+
+  Widget buildMinistryCard({
+    required String title,
+    required String imagePath,
+    required String url,
+  }) {
+    return GestureDetector(
+        onTap: () async {
+          final Uri _url = Uri.parse(url); // Convert string URL to Uri
+          if (await canLaunchUrl(_url)) {
+            // Check if the URL can be launched
+            await launchUrl(_url); // Open the URL
+          } else {
+            throw 'Could not launch $url'; // Error if URL can't be opened
+          }
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+          padding: const EdgeInsets.all(16),
+          width: 200, // Dynamic width for consistent layout
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          IntrinsicWidth(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(bottom: 6),
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color(0xFFFF4300),
-                    width: 1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IntrinsicWidth(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.only(bottom: 6),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Color(0xFFFF4300),
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.center,
+              const SizedBox(height: 16),
+              Image.asset(
+                imagePath,
+                height: 70,
+                width: 70,
+                fit: BoxFit.cover,
               ),
-            ),
+            ],
           ),
-          const SizedBox(height: 16),
-          Image.asset(
-            imagePath,
-            height: 70,
-            width: 70,
-            fit: BoxFit.cover,
-          ),
-        ],
-      ),
-    )
-  
-  
-  );
-}
+        ));
+  }
 
-
-Widget buildMinistryCardWithoutUrl({required String title, required String imagePath}) {
+  Widget buildMinistryCardWithoutUrl(
+      {required String title, required String imagePath}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -908,11 +971,9 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
         ],
       ),
     );
-  
-
   }
- 
- Widget buildCard(Attraction data, BuildContext context) {
+
+  Widget buildCard(Attraction data, BuildContext context) {
     return GestureDetector(
       onTap: () {
         // Navigate to the AttractionDetailsPage and pass the data, including description
@@ -974,10 +1035,11 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
                     children: [
                       Text(
                         data.type,
-                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                              color: Color(0xFFFF5C23),
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  color: Color(0xFFFF5C23),
+                                  fontWeight: FontWeight.bold,
+                                ),
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -1001,8 +1063,6 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
     );
   }
 
-
-
   // Grid item
   Widget _buildGridItem(String title, String imagePath) {
     return GestureDetector(
@@ -1022,12 +1082,10 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
         } else if (title == 'Gallery') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => GalleryPage()));
-        }
-        else if (title == 'Events') {
+        } else if (title == 'Events') {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => EventsPage()));
         }
-
       },
       child: SizedBox(
         height: 80,
@@ -1038,15 +1096,14 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 padding: EdgeInsets.all(5),
                 decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(10)
-                ),
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(10)),
                 child: Image.asset(
                   imagePath,
                   height: 25,
@@ -1070,5 +1127,4 @@ Widget buildMinistryCardWithoutUrl({required String title, required String image
       ),
     );
   }
-
 }

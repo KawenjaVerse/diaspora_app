@@ -9,7 +9,6 @@ import 'SplashPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-
 //ec83e20f-5f23-4e93-abf7-3a9fa57a9e41
 
 Future<void> main() async {
@@ -18,7 +17,9 @@ Future<void> main() async {
   OneSignal.initialize("ec83e20f-5f23-4e93-abf7-3a9fa57a9e41");
   OneSignal.Notifications.requestPermission(true);
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -39,11 +40,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashPage(), // Splash page route
         '/home': (context) => const HomePage(), // Home page route
-      //   '/signup': (context) => const _PlaceholderPage(title: 'Sign Up Page'), // Sign Up page route
-      //   '/signin': (context) => const _PlaceholderPage(title: 'Sign In Page'), // Sign In page route
-      // 
+        //   '/signup': (context) => const _PlaceholderPage(title: 'Sign Up Page'), // Sign Up page route
+        //   '/signin': (context) => const _PlaceholderPage(title: 'Sign In Page'), // Sign In page route
+        //
       },
     );
   }
 }
-

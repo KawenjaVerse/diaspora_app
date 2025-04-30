@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class NationalIDPage extends StatefulWidget {
-  final String url = 'https://www.ugandaforms.org/appointment/';
+  final String url = 'https://www.nira.go.ug/home';
   const NationalIDPage({super.key});
 
   @override
@@ -74,7 +74,7 @@ class _NationalIDPageState extends State<NationalIDPage> {
         return AlertDialog(
           title: const Text('National ID Appointment Follow-up'),
           content: const Text(
-            'After booking your appointment, please contact the National ID team for further assistance and easy follow-up via: +256 414 674 906, info@diasporaaffairs.go.ug',
+            'After booking your appointment, please contact the diaspora team for further assistance and easy follow-up via: +256 414 674 906, info@diasporaaffairs.go.ug',
           ),
           actions: <Widget>[
             TextButton(
