@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -10,9 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
-var APP_URL_BASE  = "http://188.166.8.72:9019/api/";
-var APP_URL_FILE  = "http://188.166.8.72:9019/files/";
-
+var APP_URL_BASE = "http://188.166.8.72:9019/api/";
+var APP_URL_FILE = "http://188.166.8.72:9019/files/";
 
 var skip_verification = true;
 
@@ -22,7 +19,6 @@ var minorColor = Color(0xFF203868);
 var headerColor = Color(0xFFFABA4A);
 var otibeeBlue = Color(0xFF2980b9);
 
-
 var mainColor = Color(0xff151515);
 var bgColor = Color(0xffdfdfdf);
 var popColor = Color(0xffdd1e1e);
@@ -30,7 +26,7 @@ var popColor = Color(0xffdd1e1e);
 //measurements
 var smallMargin = 5.0;
 
-void showSnackBar(BuildContext context, String message){
+void showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
 }
 
@@ -41,7 +37,7 @@ void logoutPerson(context) async {
 }
 
 Future<String> getSharedPreference(String key) async {
-  var preferences =  await SharedPreferences.getInstance();
+  var preferences = await SharedPreferences.getInstance();
   return preferences.getString(key) ?? "";
 }
 
@@ -71,14 +67,14 @@ void saveShopInPreference(shop) async {
 getShopFromPreference() async {
   var preferences = await SharedPreferences.getInstance();
   var shop = preferences.getString("shop");
-  if(shop != null){
+  if (shop != null) {
     return jsonDecode(shop);
-  }else{
+  } else {
     return null;
   }
 }
 
-void saveToken(token,token_type) async {
+void saveToken(token, token_type) async {
   print("Saving person in preference");
   var preferences = await SharedPreferences.getInstance();
   preferences.setBool("is_user_logged_in", true);
@@ -87,19 +83,17 @@ void saveToken(token,token_type) async {
   preferences.setString("token_type", token_type);
 }
 
-String formatLaravelTime(String created_at){
+String formatLaravelTime(String created_at) {
   var date = DateTime.parse(created_at);
   return "${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute}";
 }
-
 
 String formatNumberWithCommas(String number) {
   final formatter = NumberFormat('#,###');
   return formatter.format(int.parse(number));
 }
 
-
-computeProductDiscountPercentage( product) {
+computeProductDiscountPercentage(product) {
   var price = double.parse(product['price']);
   var oldPrice = product['old_price'];
   var discount = 0.0;
@@ -109,17 +103,23 @@ computeProductDiscountPercentage( product) {
   }
 
   return discount.round();
-
 }
 
-var boxDecoration = BoxDecoration(border: Border.all(color: Colors.grey, width: 1), borderRadius: BorderRadius.circular(5),);
-InputDecoration inputDecoration(String hintText){
+var boxDecoration = BoxDecoration(
+  border: Border.all(color: Colors.grey, width: 1),
+  borderRadius: BorderRadius.circular(5),
+);
+InputDecoration inputDecoration(String hintText) {
   return InputDecoration(
     contentPadding: const EdgeInsets.all(6),
     hintText: hintText,
-    hintStyle: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.normal),
+    hintStyle: TextStyle(
+        color: Colors.grey, fontSize: 14, fontWeight: FontWeight.normal),
     isDense: true,
-    border: const OutlineInputBorder( borderSide: BorderSide.none, ), filled: false, // Needed to respect the background color
+    border: const OutlineInputBorder(
+      borderSide: BorderSide.none,
+    ),
+    filled: false, // Needed to respect the background color
   );
 }
 
@@ -149,10 +149,7 @@ String getDurationFromNow(String dateTimeString) {
   }
 }
 
-
-
-
-Widget artyTechButtonFilled(String text, Function() onPressed){
+Widget artyTechButtonFilled(String text, Function() onPressed) {
   return GestureDetector(
     onTap: onPressed,
     child: Container(
@@ -162,11 +159,20 @@ Widget artyTechButtonFilled(String text, Function() onPressed){
         ),
         padding: EdgeInsets.all(13),
         margin: EdgeInsets.all(smallMargin),
-        child: Center(child: Text(text, style: TextStyle( color: Colors.white,fontWeight: FontWeight.bold, fontSize: 17),))),
+        child: Center(
+            child: Text(
+          text,
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
+        ))),
   );
 }
 
-Widget artyTechDropDown(String text, String current,  dynamic items , Function(String) onSaved,{ IconData? prefixIcon, keyboardType = TextInputType.text, String? currentValue }){
+Widget artyTechDropDown(
+    String text, String current, dynamic items, Function(String) onSaved,
+    {IconData? prefixIcon,
+    keyboardType = TextInputType.text,
+    String? currentValue}) {
   var children = [];
   children = items;
   return Container(
@@ -178,21 +184,31 @@ Widget artyTechDropDown(String text, String current,  dynamic items , Function(S
           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3),
           child: Wrap(
             children: [
-              Text("$text", style: TextStyle(color: mainColor, fontSize: 15, fontWeight: FontWeight.bold),),
-              SizedBox(width: 5,),
-              if( currentValue != null )
-                Text("Current: $currentValue", style: TextStyle(fontSize: 12, color : Colors.green ),),
+              Text(
+                "$text",
+                style: TextStyle(
+                    color: mainColor,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              if (currentValue != null)
+                Text(
+                  "Current: $currentValue",
+                  style: TextStyle(fontSize: 12, color: Colors.green),
+                ),
             ],
           ),
         ),
-
         ListView.builder(
           shrinkWrap: true,
           primary: false,
           itemCount: children.length,
           itemBuilder: (context, index) {
             return GestureDetector(
-              onTap: (){
+              onTap: () {
                 current = children[index];
                 onSaved(current!);
               },
@@ -203,10 +219,14 @@ Widget artyTechDropDown(String text, String current,  dynamic items , Function(S
                   width: double.infinity,
                   child: Row(
                     children: [
-                      if(current == children[index])
+                      if (current == children[index])
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: Icon(Icons.check, color: mainColor,size: 23,),
+                          child: Icon(
+                            Icons.check,
+                            color: mainColor,
+                            size: 23,
+                          ),
                         ),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
@@ -217,16 +237,12 @@ Widget artyTechDropDown(String text, String current,  dynamic items , Function(S
             );
           },
         ),
-
-
-
-
       ],
     ),
   );
 }
 
-Widget artyTechButtonOvalFilled(String text, Function() onPressed){
+Widget artyTechButtonOvalFilled(String text, Function() onPressed) {
   return GestureDetector(
     onTap: onPressed,
     child: Container(
@@ -238,13 +254,16 @@ Widget artyTechButtonOvalFilled(String text, Function() onPressed){
           borderRadius: BorderRadius.circular(30),
         ),
         padding: EdgeInsets.all(10),
-        child: Text(text, style: TextStyle(color: Colors.white), textAlign: TextAlign.center,)),
+        child: Text(
+          text,
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        )),
   );
 }
 
-artyTechPickPicture( BuildContext context, Function(String) onSuccess) async {
-
-      /*
+artyTechPickPicture(BuildContext context, Function(String) onSuccess) async {
+  /*
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
@@ -253,94 +272,109 @@ artyTechPickPicture( BuildContext context, Function(String) onSuccess) async {
             //add ios permissions
             */
 
-      finishPicking(String path) async {
-        if(path == ""){
-          onSuccess("");
-          return;
-        }
-
-        CroppedFile? croppedFile = await ImageCropper().cropImage(
-          sourcePath: path,
-          aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-          uiSettings: [
-            AndroidUiSettings( toolbarTitle: 'Cropper', toolbarColor: mainColor, toolbarWidgetColor: Colors.white, aspectRatioPresets: [CropAspectRatioPreset.square]),
-            IOSUiSettings( title: 'Cropper', aspectRatioPresets: [CropAspectRatioPreset.square] ),
-          ],
-        );
-
-        if (croppedFile != null) {
-          onSuccess(croppedFile.path);
-        } else {
-          onSuccess("");
-        }
-
-      }
-
-      final ImagePicker _picker = ImagePicker();
-
-      showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return SafeArea(
-            child: Wrap(
-              children: [
-                ListTile(
-                  leading: Icon(Icons.camera_alt),
-                  title: Text('Take a Picture'),
-                  onTap: () async {
-                    Navigator.pop(context);
-                    final XFile? image =
-                    await _picker.pickImage(source: ImageSource.camera);
-                    if (image != null) {
-                      finishPicking(image.path);
-                    } else {
-                      finishPicking("");
-                    }
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.photo),
-                  title: Text('Choose from Gallery'),
-                  onTap: () async {
-                    Navigator.pop(context);
-                    final XFile? image =
-                    await _picker.pickImage(source: ImageSource.gallery);
-                    if (image != null) {
-                      finishPicking(image.path);
-                    } else {
-                      finishPicking("");
-                    }
-                  },
-                ),
-              ],
-            ),
-          );
-        },
-      );
+  finishPicking(String path) async {
+    if (path == "") {
+      onSuccess("");
+      return;
     }
 
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: path,
+      aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+      uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: mainColor,
+            toolbarWidgetColor: Colors.white,
+            aspectRatioPresets: [CropAspectRatioPreset.square]),
+        IOSUiSettings(
+            title: 'Cropper',
+            aspectRatioPresets: [CropAspectRatioPreset.square]),
+      ],
+    );
 
-Widget artyTechTextInput(String text,  Function(String) onSaved,{ IconData? prefixIcon, keyboardType = TextInputType.text}){
-  return Container(
-    margin: EdgeInsets.all(smallMargin),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3),
-          child: Text("$text", style: TextStyle(color: mainColor, fontSize: 15, fontWeight: FontWeight.bold),),
-        ),
-        Container(
-          decoration: boxDecoration,
-          width: double.infinity,
-          child: TextFormField(
-            decoration: inputDecoration("Type $text here").copyWith(
-              prefixIcon: prefixIcon != null ? Icon(prefixIcon,) : null,
+    if (croppedFile != null) {
+      onSuccess(croppedFile.path);
+    } else {
+      onSuccess("");
+    }
+  }
+
+  final ImagePicker _picker = ImagePicker();
+
+  showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: Icon(Icons.camera_alt),
+              title: Text('Take a Picture'),
+              onTap: () async {
+                Navigator.pop(context);
+                final XFile? image =
+                    await _picker.pickImage(source: ImageSource.camera);
+                if (image != null) {
+                  finishPicking(image.path);
+                } else {
+                  finishPicking("");
+                }
+              },
             ),
+            ListTile(
+              leading: Icon(Icons.photo),
+              title: Text('Choose from Gallery'),
+              onTap: () async {
+                Navigator.pop(context);
+                final XFile? image =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                if (image != null) {
+                  finishPicking(image.path);
+                } else {
+                  finishPicking("");
+                }
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+Widget artyTechTextInput(
+  String text,
+  Function(String) onSaved, {
+  IconData? prefixIcon,
+  TextInputType keyboardType = TextInputType.text,
+}) {
+  return Container(
+    height: 60.0,
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+    decoration: BoxDecoration(
+      color: Colors.grey[200],
+      borderRadius: BorderRadius.circular(25.0),
+    ),
+    child: Row(
+      children: [
+        if (prefixIcon != null)
+          Icon(prefixIcon, size: 20.0, color: Colors.black54),
+        if (prefixIcon != null) const SizedBox(width: 8.0),
+        Expanded(
+          child: TextFormField(
+            decoration: InputDecoration(
+              labelText: text,
+              labelStyle: const TextStyle(
+                color: Colors.black54,
+                fontSize: 12.0,
+              ),
+              border: InputBorder.none,
+              isDense: true,
+            ),
+            style: const TextStyle(fontSize: 14.0),
             keyboardType: keyboardType,
-            onSaved: (value){
-              onSaved(value!);
-            },
+            onSaved: (value) => onSaved(value!),
           ),
         ),
       ],
@@ -348,28 +382,60 @@ Widget artyTechTextInput(String text,  Function(String) onSaved,{ IconData? pref
   );
 }
 
-Widget artyTechTextArea(String text,  Function(String) onSaved){
+// Widget artyTechTextInput(String text,  Function(String) onSaved,{ IconData? prefixIcon, keyboardType = TextInputType.text}){
+//   return Container(
+//     margin: EdgeInsets.all(smallMargin),
+//     child: Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 3),
+//           child: Text("$text", style: TextStyle(color: mainColor, fontSize: 15, fontWeight: FontWeight.bold),),
+//         ),
+//         Container(
+//           decoration: boxDecoration,
+//           width: double.infinity,
+//           child: TextFormField(
+//             decoration: inputDecoration("Type $text here").copyWith(
+//               prefixIcon: prefixIcon != null ? Icon(prefixIcon,) : null,
+//             ),
+//             keyboardType: keyboardType,
+//             onSaved: (value){
+//               onSaved(value!);
+//             },
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }
+
+Widget artyTechTextArea(String text, Function(String) onSaved) {
   return Container(
     height: 100,
     margin: EdgeInsets.all(smallMargin),
     decoration: boxDecoration,
     width: double.infinity,
     child: TextFormField(
-      
       maxLines: 5,
       decoration: inputDecoration(text),
-      onSaved: (value){
+      onSaved: (value) {
         onSaved(value!);
       },
     ),
   );
 }
 
-Widget artyTechErrorWidget(String text){
-  return Center(child: Text(text, style: TextStyle(color: Colors.red),),);
+Widget artyTechErrorWidget(String text) {
+  return Center(
+    child: Text(
+      text,
+      style: TextStyle(color: Colors.red),
+    ),
+  );
 }
 
-Widget artyTechButtonOvalStroke(String text, Function() onPressed){
+Widget artyTechButtonOvalStroke(String text, Function() onPressed) {
   return GestureDetector(
     onTap: onPressed,
     child: Container(
@@ -380,19 +446,26 @@ Widget artyTechButtonOvalStroke(String text, Function() onPressed){
         border: Border.all(color: mainColor, width: 2),
       ),
       padding: EdgeInsets.all(10),
-      child: Text(text, style: TextStyle(color: mainColor, fontWeight: FontWeight.bold, fontSize: 16),), alignment: Alignment.center,),
+      child: Text(
+        text,
+        style: TextStyle(
+            color: mainColor, fontWeight: FontWeight.bold, fontSize: 16),
+      ),
+      alignment: Alignment.center,
+    ),
   );
 }
 
-
-String requestFile(String path){
-  if(path.startsWith("http")){
+String requestFile(String path) {
+  if (path.startsWith("http")) {
     return path;
   }
   return APP_URL_FILE + path;
 }
 
-Future<void> requestAPI( String path, data, Function(bool) onProgress, Function(dynamic) onSuccess, Function(dynamic) onError, {String method = "POST"}) async {
+Future<void> requestAPI(String path, data, Function(bool) onProgress,
+    Function(dynamic) onSuccess, Function(dynamic) onError,
+    {String method = "POST"}) async {
   var dio;
   var full_path = "";
 
@@ -410,13 +483,17 @@ Future<void> requestAPI( String path, data, Function(bool) onProgress, Function(
     responseType: ResponseType.json,
     headers: {
       "Authorization": "Bearer $token",
-    },);
+    },
+  );
 
   try {
     onProgress(true);
     if (method == "POST") {
       dio = Dio().post(
-        full_path, data: FormData.fromMap(data), options: options,);
+        full_path,
+        data: FormData.fromMap(data),
+        options: options,
+      );
     } else if (method == "GET") {
       dio = Dio().get(full_path, queryParameters: data, options: options);
     } else if (method == "PUT") {
@@ -427,18 +504,16 @@ Future<void> requestAPI( String path, data, Function(bool) onProgress, Function(
 
     var response = await dio;
 
-      //print(response.data);
-      onProgress(false);
-      print(response.data);
-      onSuccess(response.data);
-
+    //print(response.data);
+    onProgress(false);
+    print(response.data);
+    onSuccess(response.data);
   } on DioException catch (error) {
     onProgress(false);
     //print(error.message);
     print(error.type);
     print(error.response?.data);
     onError(error.response?.data);
-
   }
 }
 
@@ -450,14 +525,14 @@ Color hexToColor(String color) {
   return Color(int.parse(hexColor, radix: 16));
 }
 
-BoxDecoration borderBoxDecoration(){
+BoxDecoration borderBoxDecoration() {
   return BoxDecoration(
     border: Border.all(color: Colors.grey, width: 1),
     borderRadius: BorderRadius.circular(5),
   );
 }
 
-helperSelectDate(BuildContext context, Function(String) onDate ) async {
+helperSelectDate(BuildContext context, Function(String) onDate) async {
   final DateTime? pickedDate = await showDatePicker(
     context: context,
     initialDate: DateTime.now(),
@@ -466,7 +541,8 @@ helperSelectDate(BuildContext context, Function(String) onDate ) async {
   );
 
   if (pickedDate != null) {
-    String _date = "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
+    String _date =
+        "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
     onDate(_date);
   }
 }
