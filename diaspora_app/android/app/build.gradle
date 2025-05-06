@@ -28,7 +28,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.afrosoft.diaspora_app"
     compileSdk = 35
-    ndkVersion = "28.0.12433566"
+    ndkVersion = "29.0.13113456"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
