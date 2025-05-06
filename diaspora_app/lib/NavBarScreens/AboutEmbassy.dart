@@ -12,7 +12,8 @@ class AboutEmbassyPage extends StatefulWidget {
   State<AboutEmbassyPage> createState() => _AboutEmbassyPageState();
 }
 
-class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerProviderStateMixin {
+class _AboutEmbassyPageState extends State<AboutEmbassyPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
   bool _isLoading = true;
   List<dynamic> _staffList = [];
@@ -33,7 +34,8 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
   // Fetch staff data from the API
   Future<void> _fetchStaffData() async {
     try {
-      final response = await http.get(Uri.parse("http://188.166.8.72:9019/api/staff/get?embassy_id=${widget.id}'"));
+      final response = await http.get(Uri.parse(
+          "http://188.166.8.72:9019/api/staff/get?embassy_id=${widget.id}'"));
 
       if (response.statusCode == 200) {
         // Parse the JSON response
@@ -56,7 +58,7 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   appBar: AppBar(
+      appBar: AppBar(
         title: const Text(
           'About Embassy',
           style: TextStyle(color: Colors.white, fontSize: 16),
@@ -76,7 +78,6 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
           ],
         ),
       ),
-     
       body: TabBarView(
         controller: _tabController,
         children: [
@@ -91,7 +92,8 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
                     widget.details.isNotEmpty
                         ? widget.details
                         : 'No details available.',
-                    style: const TextStyle(fontSize: 16, height: 1.6, color: Colors.black87),
+                    style: const TextStyle(
+                        fontSize: 16, height: 1.6, color: Colors.black87),
                   ),
                 ],
               ),
@@ -111,7 +113,8 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
                           return _buildStaffCard(
                             name: staff['name'] ?? 'Unknown',
                             title: staff['position'] ?? 'No position',
-                            imageUrl: staff['picture'] ?? '', // Use default image if null
+                            imageUrl: staff['picture'] ??
+                                '', // Use default image if null
                           );
                         },
                       ),
@@ -136,27 +139,29 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
-           CircleAvatar(
-  radius: 40,
-  backgroundColor: Colors.grey.shade200, // Background in case of no image
-  child: ClipRRect(
-    borderRadius: BorderRadius.circular(40), // Ensures it's fully circular
-    child: imageUrl.isNotEmpty
-        ? Image.network(
-            imageUrl,
-            width: 80, // Double the radius to fit perfectly
-            height: 80,
-            fit: BoxFit.cover, // Ensures the image covers the avatar without distortion
-          )
-        : Image.asset(
-            'assets/images/default-avatar.png',
-            width: 80,
-            height: 80,
-            fit: BoxFit.cover,
-          ),
-  ),
-),
-
+            CircleAvatar(
+              radius: 40,
+              backgroundColor:
+                  Colors.grey.shade200, // Background in case of no image
+              child: ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(40), // Ensures it's fully circular
+                child: imageUrl.isNotEmpty
+                    ? Image.network(
+                        imageUrl,
+                        width: 80, // Double the radius to fit perfectly
+                        height: 80,
+                        fit: BoxFit
+                            .cover, // Ensures the image covers the avatar without distortion
+                      )
+                    : Image.asset(
+                        'assets/images/default-avatar.png',
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+            ),
             const SizedBox(width: 12),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,9 +177,13 @@ class _AboutEmbassyPageState extends State<AboutEmbassyPage> with SingleTickerPr
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 8,
+                    fontSize: 12,
                     color: Colors.black54,
                   ),
+                  softWrap: true,
+                  maxLines: 2, // allows unlimited lines
+                  overflow: TextOverflow
+                      .visible, // or TextOverflow.ellipsis if you want trailing dots
                 ),
               ],
             ),
