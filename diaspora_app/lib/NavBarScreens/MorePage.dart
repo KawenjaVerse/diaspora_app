@@ -14,37 +14,61 @@ import '../Home/ContactPage.dart';
 import '../Home/ContactUs/ContactUsPage.dart';
 import 'EditProfilePage.dart';
 
-class ProfilePage extends StatefulWidget{
+class ProfilePage extends StatefulWidget {
   @override
   State<ProfilePage> createState() {
     return _ProfilePage();
   }
-
 }
 
-
-class _ProfilePage extends State<ProfilePage>{
- File? _profileImage;
+class _ProfilePage extends State<ProfilePage> {
+  File? _profileImage;
   @override
   void initState() {
     super.initState();
     getName();
+    loadProfileImage(); // Load profile image if saved
   }
-Future<void> _pickImage() async {
+
+  Future<void> loadProfileImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? path = prefs.getString('profile_image_path');
+    if (path != null && File(path).existsSync()) {
+      setState(() {
+        _profileImage = File(path);
+      });
+    }
+  }
+
+  Future<void> _pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
+      final path = pickedFile.path;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('profile_image_path', path);
+
       setState(() {
-        _profileImage = File(pickedFile.path);
+        _profileImage = File(path);
       });
     }
   }
+
+// Future<void> _pickImage() async {
+//     final picker = ImagePicker();
+//     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+//     if (pickedFile != null) {
+//       setState(() {
+//         _profileImage = File(pickedFile.path);
+//       });
+//     }
+//   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -62,7 +86,8 @@ Future<void> _pickImage() async {
                           ? FileImage(_profileImage!) // Display selected image
                           : null,
                       child: _profileImage == null
-                          ? Icon(Icons.person, size: 50, color: Colors.grey.shade500)
+                          ? Icon(Icons.person,
+                              size: 50, color: Colors.grey.shade500)
                           : null,
                     ),
                     Positioned(
@@ -102,8 +127,10 @@ Future<void> _pickImage() async {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text("$_name ($_phone)"),
-                    Text("$_email", style: TextStyle(fontWeight: FontWeight.bold),),
-
+                    Text(
+                      "$_email",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
@@ -114,32 +141,35 @@ Future<void> _pickImage() async {
                 context,
                 title: 'Profile Settings',
                 items: [
-                 _buildSettingItem(
-  icon: FontAwesomeIcons.userEdit,
-  title: 'Edit Profile',
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => EditProfilePage(
-          name: _name,
-          email: _email,
-          phone: _phone,
-        ),
-      ),
-    ).then((_) {
-      // Refresh the profile data after returning from the edit page
-      getName();
-    });
-  },
-),
-                   _buildSettingItem(
+                  _buildSettingItem(
+                    icon: FontAwesomeIcons.userEdit,
+                    title: 'Edit Profile',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProfilePage(
+                            name: _name,
+                            email: _email,
+                            phone: _phone,
+                          ),
+                        ),
+                      ).then((_) {
+                        // Refresh the profile data after returning from the edit page
+                        getName();
+                      });
+                    },
+                  ),
+                  _buildSettingItem(
                     icon: FontAwesomeIcons.signOutAlt,
                     title: 'Logout',
                     onTap: () {
                       // Handle logout action
                       logoutPerson(context);
-                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginPage() ), (route) => false);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          (route) => false);
                     },
                   ),
                 ],
@@ -168,15 +198,17 @@ Future<void> _pickImage() async {
                     icon: FontAwesomeIcons.contactCard,
                     title: 'Contact Us',
                     onTap: () {
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ContactUsPage() ) );
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ContactUsPage()));
                     },
                   ),
                   _buildSettingItem(
                     icon: Icons.photo_size_select_actual_rounded,
                     title: 'Gallery',
                     onTap: () {
-                       Navigator.push(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => GalleryPage(),
@@ -187,10 +219,7 @@ Future<void> _pickImage() async {
                 ],
               ),
 
-
               const SizedBox(height: 16),
-
-             
             ],
           ),
         ),
@@ -199,7 +228,8 @@ Future<void> _pickImage() async {
   }
 
   // Build a settings section with items
-  Widget buildSettingsSection(BuildContext context, {
+  Widget buildSettingsSection(
+    BuildContext context, {
     required String title,
     required List<Widget> items,
   }) {
