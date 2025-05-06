@@ -55,16 +55,6 @@ class _ProfilePage extends State<ProfilePage> {
     }
   }
 
-// Future<void> _pickImage() async {
-//     final picker = ImagePicker();
-//     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-//     if (pickedFile != null) {
-//       setState(() {
-//         _profileImage = File(pickedFile.path);
-//       });
-//     }
-//   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
