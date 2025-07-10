@@ -36,9 +36,9 @@ class _NssfPageState extends State<NssfPage> {
       ..loadRequest(Uri.parse(widget.url));
 
     // Optional: Show a dialog after loading, matching your other pages
-    Future.delayed(Duration(seconds: 2), () {
-      showNationalIDContactDialog(context);
-    });
+    //Future.delayed(Duration(seconds: 2), () {
+    //showNationalIDContactDialog(context);
+    //});
   }
 
   @override

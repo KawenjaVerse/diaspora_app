@@ -546,3 +546,58 @@ helperSelectDate(BuildContext context, Function(String) onDate) async {
     onDate(_date);
   }
 }
+
+
+Future<void> requestAPIDirect(String path, data, Function(bool) onProgress,
+    Function(dynamic) onSuccess, Function(dynamic) onError,
+    {String method = "POST"}) async {
+  var dio;
+  var full_path = "";
+
+  //if path starts with http
+  if (path.startsWith("http")) {
+    full_path = path;
+  } else {
+    full_path = APP_URL_BASE + path;
+  }
+
+  var pref = await SharedPreferences.getInstance();
+  var token = pref.getString("token") ?? "";
+  var options = Options(
+    contentType: Headers.jsonContentType,
+    responseType: ResponseType.json,
+    headers: {
+      "Authorization": "Bearer $token",
+    },
+  );
+
+  try {
+    onProgress(true);
+    if (method == "POST") {
+      dio = Dio().post(
+        full_path,
+        data: FormData.fromMap(data),
+        options: options,
+      );
+    } else if (method == "GET") {
+      dio = Dio().get(full_path, queryParameters: data, options: options);
+    } else if (method == "PUT") {
+      dio = Dio().put(full_path, data: data, options: options);
+    } else if (method == "DELETE") {
+      dio = Dio().delete(full_path, data: data, options: options);
+    }
+
+    var response = await dio;
+
+    //print(response.data);
+    onProgress(false);
+    print(response.data);
+    onSuccess(response.data);
+  } on DioException catch (error) {
+    onProgress(false);
+    //print(error.message);
+    print(error.type);
+    print(error.response?.data);
+    onError(error.response?.data);
+  }
+}

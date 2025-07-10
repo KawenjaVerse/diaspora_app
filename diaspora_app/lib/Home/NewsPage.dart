@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
 class NewsDetailPage extends StatelessWidget {
+
   final String image;
   final String title;
   final String description;
+  final dynamic obj;
 
   const NewsDetailPage({
     Key? key,
     required this.image,
     required this.title,
     required this.description,
+    required this.obj,
   }) : super(key: key);
 
   @override
@@ -23,12 +26,7 @@ class NewsDetailPage extends StatelessWidget {
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              
-              background: Image.asset(
-                image,
-                fit: BoxFit.cover,
-              ),
-            ),
+              background: Image.network(image, fit: BoxFit.cover,), ),
           ),
           // Content Section
           SliverToBoxAdapter(
@@ -48,6 +46,16 @@ class NewsDetailPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   // Description in a Card
+
+                  if (obj["ministry"] != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6).copyWith(bottom: 8),
+                    child: Text(
+                      obj["ministry"]["name"] ?? "...",
+                      style: const TextStyle(fontSize: 13, height: 1.5, color: Color(0xFFFF5C23),),
+                    ),
+                  ),
+
                   Card(
                     elevation: 2,
                     shape: RoundedRectangleBorder(
